@@ -1,6 +1,8 @@
 import argparse
+from pathlib import Path
 
 import pandas as pd
+from django.conf import settings
 from django.contrib.gis.geos import Point
 
 from django.core.management.base import BaseCommand
@@ -17,7 +19,7 @@ class Command(BaseCommand):
             "-s",
             "--source",
             type=argparse.FileType(mode="r"),
-            default="../data/laposte_hexasmal.csv",
+            default=str(Path(settings.BASE_DIR) / "data" / "laposte_hexasmal.csv"),
         )
 
     def handle(self, *args, source, **options):

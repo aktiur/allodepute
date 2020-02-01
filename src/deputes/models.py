@@ -1,4 +1,4 @@
-from django.contrib.gis.db.models import PointField
+from django.contrib.gis.db.models import PointField, GeometryField
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
@@ -20,6 +20,9 @@ class Circonscription(models.Model):
     numero = models.PositiveSmallIntegerField(
         verbose_name="Numéro de la circonscription"
     )
+
+    contour = GeometryField(verbose_name="Contour", geography=True, null=True)
+    centroid = PointField(verbose_name="Centre approximatif", geography=True, null=True)
 
     class Meta:
         constraints = [

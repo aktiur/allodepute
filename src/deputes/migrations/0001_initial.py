@@ -74,7 +74,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddConstraint(
-            model_name="circonscriptions",
+            model_name="circonscription",
             constraint=models.UniqueConstraint(
                 fields=("departement", "numero"), name="code_circonscription"
             ),
