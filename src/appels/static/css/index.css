@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: 'Fira Sans';
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  flex-grow: 1;
+  padding: 5em 0;
+}
+
+a,
+a:visited {
+  color: currentColor;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  font-size: 4.5em;
+  margin: 0;
+}
+
+header p {
+  font-size: 2em;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2.5em;
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  color: #999;
+}
+
+dd + dt {
+  margin-top: 1em;
+}
+
+dd {
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1em;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 5em;
+}
+
+.card__header {
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+  color: #888;
+  padding: 0.5em 1em;
+}
+
+.card__content {
+  padding: 1em;
+  display: flex;
+}
+
+.card__id {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1em;
+  flex-shrink: 0;
+}
+
+.card__image {
+  width: 8em;
+  height: 8em;
+  margin-bottom: 1em;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.card__image img {
+  object-fit: cover;
+}
+
+.card__id h3,
+.card__id p {
+  margin: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+}
+
+.panel {
+  border: 1px solid #ddd;
+  padding: 1em;
+  border-radius: 4px;
+}
+
+.panel h3 {
+  margin-top: 0;
+}
+
+.phone-call .panel {
+  font-size: 3em;
+  display: inline-block;
+}

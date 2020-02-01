@@ -1,0 +1,98 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+
+{% block content %}
+<header>
+  <div class="container">
+    <h1>Allo député</h1>
+    <p>Ma retraite est en danger !</p>
+  </div>
+</header>
+<main class="content">
+  <div class="container">
+    <h2>Le député du jour</h2>
+    <div class="card">
+      <div class="card__header">
+        1ère circonscription des Hautes-Pyrénées
+      </div>
+      <div class="card__content">
+        <div class="card__id">
+          <div class="card__image">
+            <img src="" alt="" />
+          </div>
+          <div class="card__name">
+            <h3>Jean-Bernard Sempastous</h3>
+            <p>La République En Marche</p>
+          </div>
+        </div>
+        <div class="card__info">
+          <dl>
+            <dt>Adresse email</dt>
+            <dd><a href="mailto:jean-bernard.sempastous@assemblee-nationale.fr">jean-bernard.sempastous@assemblee-nationale.fr</a></dd>
+            <dt>Numéro de téléphone</dt>
+            <dd>05 62 42 86 45</dd>
+            <dt>Twitter</dt>
+            <dd><a href="https://twitter.com/Sempastoushp">@Sempastoushp</a></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="">
+        <label for="postcode">Je souhaite voir les informations du député d’une autre région :</label>
+        <input type="text" id="postcode" name="search" />
+      </div>
+    </div>
+    <div class="arguments">
+      <details>
+        <summary>
+          Argumentaire court (~30sec)
+        </summary>
+        <ul>
+          <li>Argument #1</li>
+          <li>Argument #2</li>
+          <li>Argument #3</li>
+        </ul>
+      </details>
+      <details>
+        <summary>
+          Argumentaire moyen (~3min)
+        </summary>
+        <ul>
+          <li>Argument #1</li>
+          <li>Argument #2</li>
+          <li>Argument #3</li>
+        </ul>
+      </details>
+      <details>
+        <summary>
+          Argumentaire long (~30min)
+        </summary>
+        <ul>
+          <li>Argument #1</li>
+          <li>Argument #2</li>
+          <li>Argument #3</li>
+        </ul>
+      </details>
+    </div>
+    <div class="callout">
+      <div class="phone-call">
+        <h2>J’appelle le·la député·e</h2>
+        <div class="panel">05 62 42 86 45</div>
+      </div>
+      <div class="other-means">
+        <h2>Je n’aime pas le téléphone ?</h2>
+        <div class="row">
+          <div class="panel tweet">
+            <h3>Je tweete</h3>
+            <a href="https://twitter.com/intent/tweet?button_hashtag=allodepute&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #allodepute</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div class="panel mail">
+            <h3>J’envoie un mail</h3>
+            <a class="button">href="mailto:jean-bernard.sempastous@assemblee-nationale.fr">Envoyer</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+{% block extrajs %}
