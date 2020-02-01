@@ -6,11 +6,16 @@ verify_ssl = true
 [dev-packages]
 pandas = "*"
 black = "==19.10b0"
+tqdm = "*"
+glom = "*"
 
 [packages]
 django = "*"
 dj-database-url = "*"
 psycopg2 = "*"
+django-phonenumber-field = "*"
+phonenumberslite = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"

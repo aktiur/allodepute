@@ -14,8 +14,8 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "-s",
-            "--source",
+            "-c",
+            "--contours",
             type=argparse.FileType(mode="r"),
             default=str(
                 Path(settings.BASE_DIR).parent
@@ -24,7 +24,8 @@ class Command(BaseCommand):
             ),
         )
 
-    def handle(self, *args, source, **options):
+    def handle(self, *args, contours, **options):
+
         circos = json.load(source)
 
         for circo in circos["features"]:
