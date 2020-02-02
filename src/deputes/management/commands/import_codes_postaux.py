@@ -1,12 +1,8 @@
 import argparse
-from pathlib import Path
 
 import pandas as pd
-from django.conf import settings
 from django.contrib.gis.geos import Point
-
 from django.core.management.base import BaseCommand
-
 
 from ...models import CodePostal
 
@@ -16,10 +12,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "-s",
-            "--source",
-            type=argparse.FileType(mode="r"),
-            default=str(Path(settings.BASE_DIR) / "data" / "laposte_hexasmal.csv"),
+            "-s", "--source", type=argparse.FileType(mode="r"),
         )
 
     def handle(self, *args, source, **options):

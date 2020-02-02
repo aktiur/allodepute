@@ -8,6 +8,8 @@ pandas = "*"
 black = "==19.10b0"
 tqdm = "*"
 glom = "*"
+doit = "*"
+requests = "*"
 
 [packages]
 django = "*"

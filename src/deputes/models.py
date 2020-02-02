@@ -24,14 +24,14 @@ class Depute(models.Model):
 
     photo = models.ImageField(verbose_name="Photographie", null=True)
 
-    GROUPE_LREM = "LREM"
+    GROUPE_LREM = "LaREM"
     GROUPE_MODEM = "MODEM"
     GROUPE_SOC = " SOC"
     GROUPE_LR = "LR"
     GROUPE_GDR = "GDR"
     GROUPE_LT = "LT"
-    GROUPE_UAI = "UAI"
-    GROUPE_LFI = "LFI"
+    GROUPE_UAI = "UDI-AGIR"
+    GROUPE_LFI = "FI"
     GROUPE_NI = "NI"
 
     GROUPE_CHOIX = (
