@@ -57,6 +57,9 @@ class Depute(models.Model):
     def __str__(self):
         return f"{self.prenom} {self.nom} ({self.groupe} - {self.circonscription})"
 
+    def image_name(self):
+        return f"deputes/{self.code[2:]}.jpg"
+
     class Meta:
         verbose_name = "Député"
         ordering = ("nom", "prenom")

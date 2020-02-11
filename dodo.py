@@ -1,6 +1,8 @@
 from pathlib import Path
 from zipfile import ZipFile
 
+from doit import create_after
+
 from scripts import (
     telecharger,
     correspondances_partis,
@@ -16,14 +18,21 @@ URLS = {
 
 DATA_DIR = Path(__file__).parent / "data"
 AN_DIR = DATA_DIR / "assemblee_nationale"
+IMAGE_DIR = Path(__file__).parent / "static" / "deputes"
 
 
 def django_manage(*cmd):
     return ["pipenv", "run", "src/manage.py", *cmd]
 
 
-def task_creer_dossier_data():
-    return {"targets": [DATA_DIR], "actions": [DATA_DIR.mkdir], "uptodate": [True]}
+def task_dossier():
+    for name, dir in [("data", DATA_DIR), ("an", AN_DIR), ("image", IMAGE_DIR)]:
+        yield {
+            "name": name,
+            "targets": [dir],
+            "actions": [(dir.mkdir, [], {"parents": True})],
+            "uptodate": [True],
+        }
 
 
 def task_telecharger():
@@ -31,6 +40,7 @@ def task_telecharger():
         path = DATA_DIR / file
         yield {
             "name": file,
+            "task_dep": ["dossier:data"],
             "targets": [path],
             "uptodate": [True],
             "actions": [(telecharger, [url, path], {})],
@@ -46,8 +56,6 @@ def task_unzip_assemblee_nationale():
         ]
 
     def unzip_an():
-        AN_DIR.mkdir(exist_ok=True)
-
         with ZipFile(zip_path) as z:
             for file in z.infolist():
                 if file.is_dir():
@@ -57,6 +65,7 @@ def task_unzip_assemblee_nationale():
                 z.extract(file, path=AN_DIR)
 
     return {
+        "task_dep": ["dossier:an"],
         "file_dep": [zip_path],
         "targets": targets,
         "actions": [unzip_an],
@@ -106,6 +115,7 @@ def task_import_code_postaux():
 
     return {
         "file_dep": [path],
+        "uptodate": [True],
         "actions": [django_manage("import_codes_postaux", "-s", path)],
     }
 
@@ -115,13 +125,32 @@ def task_import_circonscriptions():
 
     return {
         "file_dep": [path],
+        "uptodate": [True],
         "actions": [django_manage("import_circonscriptions", "-s", path)],
     }
 
 
 def task_import_deputes():
-    dir = DATA_DIR / "assemblee_nationale"
+    src = DATA_DIR / "deputes.csv"
     return {
-        "calc_dep": ["liste_deputes"],
-        "actions": [django_manage("import_deputes", "-d", str(dir))],
+        "file_dep": [src],
+        "actions": [django_manage("import_deputes", "-s", src)],
     }
+
+
+@create_after(
+    executed="unzip_assemblee_nationale", target_regex="static/deputes/[0-9]+\.jpg$"
+)
+def task_telecharger_photos():
+    for json_file in AN_DIR.glob("PA*.json"):
+        name = json_file.stem[2:]
+        target = IMAGE_DIR / f"{name}.jpg"
+        url = f"http://www2.assemblee-nationale.fr/static/tribun/15/photos/{name}.jpg"
+
+        yield {
+            "name": name,
+            "file_dep": [json_file],
+            "task_dep": ["dossier:image"],
+            "targets": [IMAGE_DIR / f"{name}.jpg"],
+            "actions": [f"curl -s -S {url} -o {target}"],
+        }
