@@ -1,0 +1,10 @@
+- name: Ensure redis is installed
+  apt: name=redis-server state=present
+- name: Ensure redis is configured
+  copy:
+    src: etc/redis/redis.conf
+    dest: /etc/redis/redis.conf
+  notify:
+    - restart redis
+- name: Ensure redis is started and enabled
+  service: name=redis enabled=yes state=started

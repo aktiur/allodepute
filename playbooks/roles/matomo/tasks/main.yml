@@ -1,0 +1,64 @@
+- name: Create matomo group
+  group: name={{ matomo_group }} system=yes
+
+- name: Create matomo user
+  user: name={{ matomo_user }} group={{ matomo_group }} system=yes
+
+- name: Create WordPress php-fpm configuration file
+  template:
+    src: php-fpm.conf.j2
+    dest: "{{ php_conf_directory }}/fpm/pool.d/matomo.conf"
+  notify: reload php-fpm
+
+- name: Create databases for sites
+  mysql_db:
+    name: matomo
+    state: present
+
+- name: Create matomo database user to db and grant permissions
+  mysql_user:
+    name: "{{ matomo_user }}" # we use socket authentication
+    append_privs: yes
+    priv: "matomo.*:ALL"
+    state: present
+
+- name: Install unzip
+  apt:
+    name: unzip
+
+- name: Ensure matmoto directory exists
+  file:
+    path: "{{ matomo_root }}"
+    state: directory
+
+- name: Download Matomo
+  unarchive:
+    src: https://builds.matomo.org/matomo.zip
+    dest: "{{ matomo_root }}"
+    creates: "{{ matomo_root }}/matomo"
+    remote_src: yes
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+
+- name: Ensure nginx configuration is present
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/02-matomo.conf
+  vars:
+    main_domain: "{{ matomo_domain }}"
+  notify: reload nginx
+
+- name: Ensure nginx configuration is enabled
+  file:
+    path: /etc/nginx/sites-enabled/02-matomo.conf
+    src: ../sites-available/02-matomo.conf
+    state: link
+  notify:
+    - reload nginx
+
+- name: Ensure the cron task for archiving is installed
+  cron:
+    name: matomo
+    user: root
+    minute: "*/5"
+    job: php /var/www/matomo/matomo/console core:archive -q

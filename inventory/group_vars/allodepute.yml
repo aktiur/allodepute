@@ -1,0 +1,51 @@
+---
+app_name: allodepute
+app_user: allodepute
+db_name: allodepute
+app_domain: allodepute.fr
+app_repo: git@github.com:aktiur/allodepute.git
+
+# Pour nginx/letsencrypt
+letsencrypt_domains:
+  - "{{ app_domain }}"
+letsencrypt_email: arthur@cheysson.fr
+
+# Paramètres pour Django
+django_app_name: "{{ app_name }}"
+django_user: "{{ app_user }}"
+django_group: "{{ app_user }}"
+django_domain: "{{ app_domain }}"
+django_project_repo: "{{ app_repo }}"
+django_env:
+  DATABASE_URL: "postgis://%2Fvar%2Frun%2Fpostgresql/{{ db_name }}"
+  STATIC_DIRS: ""
+django_repo_base: ""
+django_secret: "fjoeifjiozejfzoefẐQ"
+django_src_path: "src/"
+django_main_package: "allodepute"
+
+
+# Paramètres pour PostgreSQL
+postgresql_version: 12
+postgresql_encoding: 'UTF-8'
+postgresql_locale: 'fr_FR.UTF-8'
+postgresql_ctype: 'fr_FR.UTF-8'
+postgresql_ext_install_dev_headers: yes  # pour pouvoir build psycopg2
+#postgresql_ext_install_postgis: yes   ## PLANTE
+postgresql_ext_postgis_version: "3"
+postgresql_service_enabled: true
+# user and database parameters
+postgresql_databases:
+  - name: "{{ db_name }}"
+    owner: "{{ app_user }}"
+postgresql_database_extensions:
+  - db: "{{ db_name }}"
+    extensions:
+      - postgis
+      - unaccent
+postgresql_users:
+  - name: "{{ app_user }}"
+postgresql_user_privileges:
+  - name: "{{ app_user }}"
+    db: "{{ db_name }}"
+    priv: "ALL"

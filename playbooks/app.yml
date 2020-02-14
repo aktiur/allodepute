@@ -1,0 +1,6 @@
+- name: Provisionne allodéputé
+  hosts: allodepute
+  tasks:
+    - import_role: { name: "common" }
+    - import_role: { name: "ANXS.postgresql" }
+    - import_role: { name: "django" }

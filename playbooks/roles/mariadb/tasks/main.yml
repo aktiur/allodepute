@@ -1,0 +1,10 @@
+- name: Install MariaDB
+  apt:
+    name: mariadb-server,mariadb-client,python-mysqldb
+
+- name: Set up matomo special mariadb conf
+  copy:
+    src: 60-matomo_tuning.cnf
+    dest: /etc/mysql/mariadb.conf.d/60-matomo_tuning.cnf
+  notify:
+    - reload mariadb

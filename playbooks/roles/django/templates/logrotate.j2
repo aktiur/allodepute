@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+{{ django_log_directory }}/*.log {
+       daily
+       rotate 7
+       copytruncate
+       delaycompress
+       compress
+       notifempty
+       missingok
+       su root root
+}

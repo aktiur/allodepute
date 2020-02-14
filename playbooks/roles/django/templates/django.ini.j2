@@ -1,0 +1,8 @@
+[uwsgi]
+master = true
+chdir = {{ django_repo_directory }}/{{ django_src_path }}
+socket = {{ django_unix_socket }}
+module = {{ django_main_package }}.wsgi:application
+processes = 2
+chmod-socket = 666
+logto = {{ django_log_directory }}/uwsgi.log

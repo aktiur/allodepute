@@ -1,0 +1,89 @@
+- name: Upgrade apt packages
+  apt: upgrade=dist update_cache=yes
+
+- name: Ensure essentials packages are installed
+  apt:
+    name:
+      - build-essential
+      - python3-pip
+      - python3-psycopg2
+      - software-properties-common
+      - apt-transport-https
+      - apt-utils
+      - debconf-utils
+      - git
+      - unzip
+
+- name: Ensure packages specific to bionic are installed
+  apt:
+    name:
+      - rsyslog
+  when: ansible_distribution_release == 'bionic'
+
+- name: add known hosts
+  copy:
+    src: ssh_known_hosts
+    dest: /etc/ssh/ssh_known_hosts
+
+- name: ensure fail2ban is present/absent
+  apt:
+    name: fail2ban
+    state: "{{ cloudflare_protected | bool | ternary('absent', 'present') }}"
+
+- name: ensure nginx is enabled in fail2ban
+  template:
+    src: fail2ban_nginx.conf
+    dest: /etc/fail2ban/jail.d/nginx.conf
+  notify:
+    - restart fail2ban
+  when: not cloudflare_protected|bool
+
+- name: ensure journal directory is created
+  file:
+    path: /var/log/journal
+    state: directory
+    group: systemd-journal
+    mode: 02755
+  notify:
+    - restart journald
+
+- name: ensure ufw is installed
+  apt: name=ufw state=present
+
+- name: ufw default allow not to block nbd
+  ufw:
+    policy: allow
+
+- name: ufw allow ssh
+  ufw:
+    rule: allow
+    port: "22"
+
+- name: ufw drop all packet once nbd is open
+  lineinfile:
+    path: /etc/ufw/after{{ item }}.rules
+    line: "-A ufw{{ item }}-reject-input -j DROP"
+    insertbefore: COMMIT
+  with_items:
+    - ''
+    - '6'
+
+- name: enable ufw
+  ufw:
+    state: enabled
+
+- name: ensure network diagnostic tools are installed
+  apt:
+    name:
+      - mtr
+      - knot-dnsutils
+      - nmap
+      - iftop
+      - vnstat
+      - hping3
+      - nload
+
+- import_role: {name: nginx}
+  tags: ["nginx"]
+- import_role: {name: letsencrypt}
+  tags: ["letsencrypt"]

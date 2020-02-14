@@ -1,0 +1,50 @@
+- name: Create letsencrypt webroot directory
+  file: path=/var/www/letsencrypt state=directory mode=0755
+
+- name: Generate certificates
+  command: "/opt/certbot/certbot-auto certonly --webroot -w /var/www/letsencrypt --cert-name {{ letsencrypt_domains[0] }} --expand -d {{ letsencrypt_domains | join(',') }} -m {{ letsencrypt_email }} -n --agree-tos"
+  register: certbot
+  changed_when: "'no action taken.' not in certbot.stdout"
+
+- name: Install cronjob for letsencrypt renewal
+  cron:
+    name: certbot-auto renew
+    minute: "12"
+    hour: "3,9"
+    job: "/opt/certbot/certbot-auto renew -q"
+
+- name: Install cronjob for nginx reload
+  cron:
+    name: nginx reload
+    minute: "15"
+    hour: "3,9"
+    job: "systemctl reload nginx"
+
+- name: Ensure domains point to localhost in hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1\s+localhost\s(\w*)'
+    line: 127.0.0.1 localhost \1 {{ letsencrypt_domains | join(' ') }}
+    backrefs: yes
+
+- name: Ensure domains point to localhost in hosts (ipv6)
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^::1\s+localhost\sip6-localhost\sip6-loopback'
+    line: "::1 localhost ip6-localhost ip6-loopback {{ letsencrypt_domains | join(' ') }}"
+    backrefs: yes
+
+- name: Install Nginx "catch-all" server block for port 443
+  template:
+    src: 99-ssl-catchall.conf.j2
+    dest: /etc/nginx/sites-available/99-ssl-catchall.conf
+  notify:
+    - reload nginx
+
+- name: Ensure Nginx "catch-all" configuration is enabled
+  file:
+    path: /etc/nginx/sites-enabled/99-ssl-catchall.conf
+    src: ../sites-available/99-ssl-catchall.conf
+    state: link
+  notify:
+    - reload nginx

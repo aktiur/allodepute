@@ -1,0 +1,4 @@
+- name: Déploie la dernière version d'Allo député
+  hosts: allodepute
+  tasks:
+    - import_role: django

@@ -1,0 +1,22 @@
+- name: add repo for python
+  apt_repository:
+    repo: 'ppa:deadsnakes/ppa'
+  register: python_repo
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+  when: python_repo.changed
+
+- name: ensure python is installed
+  apt:
+    name:
+      - "python3-pip"
+      - "python{{ python_version }}"
+      - "python{{ python_version }}-dev"
+    state: latest
+
+- name: install pipenv cause it might be useful
+  pip:
+    name: pipenv
+    executable: pip3

@@ -1,0 +1,21 @@
+{% extends "templates/nginx_site.conf.j2" %}
+
+{% block http %}
+uwsgi_cache_path /tmp/nginx_{{ main_domain }}_cache levels=1:2 keys_zone={{ main_domain }}:10m max_size=1g
+                 inactive=60m use_temp_path=off;
+{% endblock %}
+
+{% block locations %}
+  location / {
+    include uwsgi_params;
+    uwsgi_cache {{ main_domain }};
+    uwsgi_cache_key $request_uri;
+    uwsgi_cache_use_stale error timeout updating http_500 http_503;
+    uwsgi_pass unix:{{ django_unix_socket }};
+    add_header X-Cache-Status $upstream_cache_status;
+  }
+
+  location /static/ {
+    alias {{ django_static_directory }};
+  }
+{% endblock %}

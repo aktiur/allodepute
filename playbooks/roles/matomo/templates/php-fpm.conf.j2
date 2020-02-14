@@ -1,0 +1,16 @@
+; {{ ansible_managed }}
+
+[matomo]
+listen = /var/run/php-fpm-matomo.sock
+listen.owner = www-data
+listen.group = www-data
+user = {{ matomo_user }}
+group = {{ matomo_group }}
+pm = dynamic
+pm.max_children = {{ php_fpm_pm_max_children }}
+pm.start_servers = {{ php_fpm_pm_start_servers }}
+pm.min_spare_servers = {{ php_fpm_pm_min_spare_servers }}
+pm.max_spare_servers = {{ php_fpm_pm_max_spare_servers }}
+pm.max_requests = {{ php_fpm_pm_max_requests }}
+chdir = {{ matomo_root }}/matomo/
+php_flag[log_errors] = on

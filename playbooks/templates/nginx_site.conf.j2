@@ -1,0 +1,56 @@
+# {{ ansible_managed }}
+
+{% block http %}{% endblock %}
+
+server {
+  listen 80;
+
+  server_name {{ main_domain }} {% if redirect_domains is defined %}{{ redirect_domains|join(' ') }}{% endif %};
+
+  include /etc/nginx/includes/letsencrypt.conf;
+
+  location / {
+    return 301 https://{{ main_domain }}$request_uri;
+  }
+
+  access_log /var/log/nginx/{{ main_domain }}_access.log;
+  error_log /var/log/nginx/{{ main_domain }}_error.log;
+}
+
+{% if redirect_domains is defined and redirect_domains %}
+server {
+  listen 443 ssl http2;
+
+  server_name {{ redirect_domains|join(' ') }};
+
+  ssl_certificate     /etc/letsencrypt/live/{{ letsencrypt_domains[0] }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ letsencrypt_domains[0] }}/privkey.pem;
+  add_header Strict-Transport-Security "max-age=86400;" always;
+
+  include /etc/nginx/includes/letsencrypt.conf;
+
+  location / {
+    return 301 https://{{ main_domain }}$request_uri;
+  }
+
+  access_log /var/log/nginx/{{ main_domain }}_access.log {{ nginx_log_format}};
+  error_log /var/log/nginx/{{ main_domain }}_error.log;
+}
+{% endif %}
+
+server {
+  listen 443 ssl http2;
+
+  server_name {{ main_domain }};
+
+  ssl_certificate     /etc/letsencrypt/live/{{ letsencrypt_domains[0] }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ letsencrypt_domains[0] }}/privkey.pem;
+  add_header Strict-Transport-Security "max-age=86400;" always;
+
+  include /etc/nginx/includes/letsencrypt.conf;
+
+{% block locations %}{% endblock %}
+
+  access_log /var/log/nginx/{{ main_domain }}_access.log {{ nginx_log_format }};
+  error_log /var/log/nginx/{{ main_domain }}_error.log;
+}

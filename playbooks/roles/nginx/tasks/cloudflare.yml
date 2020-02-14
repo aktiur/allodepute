@@ -1,0 +1,44 @@
+- name: Download Cloudflare IPs
+  get_url:
+    url: "https://www.cloudflare.com/ips-v{{ item }}"
+    dest: "/etc/cloudflare_ip{{ item }}"
+  loop: [4, 6]
+
+- name: Slurps Cloudfare IPs
+  slurp:
+    src: "/etc/cloudflare_ip{{ item }}"
+  register: cloudfare_ips
+  loop: [4, 6]
+
+- name: Allow 443 and 80 from all Cloudflare IPs
+  ufw:
+    rule: allow
+    direction: in
+    from_ip: "{{ item.0 }}"
+    to_port: "{{ item.1 }}"
+  loop: "{{ ((cloudfare_ips.results.0.content|b64decode).split() + (cloudfare_ips.results.1.content|b64decode).split()) | product([443, 80]) | list }}"
+
+- name: Allow 443 and 80 from local IPs
+  ufw:
+    rule: allow
+    direction: in
+    from_ip: 10.0.0.0/8
+    to_port: "{{ item }}"
+  loop: [443, 80]
+
+- name: Allow 443 from monitoring servers
+  ufw:
+    rule: allow
+    direction: in
+    from_ip: "{{ hostvars[item]['ansible_host'] }}/32"
+    to_port: 443
+  loop: "{{ groups['monitoring'] }}"
+
+
+- name: Disallow 443 and 80 from everyone else
+  ufw:
+    delete: yes
+    rule: allow
+    direction: in
+    to_port: "{{ item }}"
+  loop: [443, 80]

@@ -1,0 +1,30 @@
+---
+# definissez au moins ceux-là
+django_app_name: app
+django_domain: app.fr
+django_secret: "{{ vaulted_django_secret }}"
+
+# optionnels
+django_user: django
+django_group: django
+
+# organisation du dépôt
+django_pipfile_path: ""
+django_src_path: ""
+django_manage_path: "{{ django_src_path }}manage.py"
+
+# répertoire
+django_directory: "/srv/{{ django_app_name }}"
+django_static_directory: "{{ django_directory }}/static/"
+django_media_directory: "{{ django_directory }}/media/"
+django_run_directory: "{{ django_app_name }}-django"
+django_runtime_directories: []
+django_unix_socket: /run/{{ django_run_directory }}/django.socket
+django_repo_directory: "{{ django_directory }}/repo/"
+django_manage: "{{ django_repo_directory }}{{ django_manage_path }}"
+django_pipfile: "{{ django_repo_directory }}{{ django_pipfile_path }}"
+django_log_directory: /var/log/{{ app_name }}-django
+django_nginx_conf: yes
+django_env: {}
+
+nginx_log_format: fastcgi_cache

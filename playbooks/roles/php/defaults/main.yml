@@ -1,0 +1,45 @@
+disable_default_pool: true
+memcached_sessions: false
+
+php_extensions:
+  - php-cli
+  - php-common
+  - php-curl
+  - php-dev
+  - php-fpm
+  - php-gd
+  - php-mbstring
+  - php-mysql
+  - php-opcache
+  - php-xml
+  - php-xmlrpc
+  - php-zip
+  - php-sqlite3
+
+php_keep_default_pool: no
+
+php_error_reporting: 'E_ALL & ~E_DEPRECATED & ~E_STRICT'
+php_display_errors: 'Off'
+php_display_startup_errors: 'Off'
+php_max_execution_time: 120
+php_max_input_time: 300
+php_max_input_vars: 1000
+php_memory_limit: 256M
+php_mysqlnd_collect_memory_statistics: 'Off'
+php_post_max_size: 50M
+php_sendmail_path: /usr/sbin/ssmtp -t -C /etc/ssmtp/ssmtp-fo.conf
+php_session_save_path: /tmp
+php_session_cookie_httponly: 'On'
+php_session_cookie_secure: 'On'
+php_upload_max_filesize: 50M
+php_track_errors: 'Off'
+php_version: "{{ (ansible_distribution_release == 'bionic') | ternary('7.2', '7.0') }}"
+php_conf_directory: /etc/php/{{ php_version }}
+
+php_opcache_enable: 1
+php_opcache_enable_cli: 1
+php_opcache_fast_shutdown: 1
+php_opcache_interned_strings_buffer: 8
+php_opcache_max_accelerated_files: 8000
+php_opcache_memory_consumption: 256
+php_opcache_revalidate_freq: 10

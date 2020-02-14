@@ -23,13 +23,14 @@ BASE_DIR = Path(__file__).absolute().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "y&&(+0(3h1^bqq8nbnh4uxv-64=f9ob+!ug8ofi#4(1@$(5c7w"
+SECRET_KEY = os.environ.get(
+    "SECRET", "y&&(+0(3h1^bqq8nbnh4uxv-64=f9ob+!ug8ofi#4(1@$(5c7w"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
 
 # Application definition
 
@@ -99,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 GROUPES_MAJORITE = ["LREM", "MODEM", "UAI"]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

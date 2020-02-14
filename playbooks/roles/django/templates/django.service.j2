@@ -1,0 +1,19 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=django uwsgi server
+
+[Service]
+ExecStart=/usr/local/bin/pipenv run uwsgi \
+        --ini /etc/uwsgi/apps-available/{{ django_app_name }}-django.ini
+WorkingDirectory={{ django_pipfile }}
+User={{ django_user }}
+Group={{ django_group }}
+RuntimeDirectory={{ django_run_directory }} {{ django_runtime_directories|join(' ') }}
+Restart=on-failure
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

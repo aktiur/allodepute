@@ -1,0 +1,27 @@
+# helper include for letsencrypt ACME challenge
+#
+# part of the default jlm2017 config for nginx
+# installed via ansible: do not modify here
+#
+# should be included in every server for which a letsencrypt certificate
+# need to be created.
+
+location ~ /.well-known {
+  root /var/www/letsencrypt/;
+  try_files $uri {% if letsencrypt_proxy is defined %}@le_alt1 {% else %}=404{% endif %};
+  satisfy any;
+  allow all;
+}
+
+{% if letsencrypt_proxy is defined %}
+  {% for host in ansible_play_hosts if hostvars[host]['letsencrypt_proxy'] is not defined %}
+    location @le_alt{{ loop.index }} {
+      proxy_pass http://{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}$uri;
+      {% if not loop.last %}
+        proxy_intercept_errors on;
+        recursive_error_pages on;
+        error_page 404 = @le_alt{{ loop.index + 1}};
+      {% endif %}
+    }
+  {% endfor %}
+{% endif %}

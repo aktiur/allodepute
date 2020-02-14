@@ -1,0 +1,8 @@
+- src: git+https://github.com/ANXS/postgresql
+  name: ANXS.postgresql
+
+- name: geerlingguy.certbot
+  src: geerlingguy.certbot
+
+- src: geerlingguy.composer
+  version: 1.6.1

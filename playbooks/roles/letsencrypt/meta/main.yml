@@ -1,0 +1,5 @@
+---
+dependencies:
+  - name: geerlingguy.certbot
+    certbot_auto_renew: False
+    certbot_install_from_source: yes

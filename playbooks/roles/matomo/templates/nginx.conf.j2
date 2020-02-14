@@ -1,0 +1,17 @@
+{% extends "templates/nginx_site.conf.j2" %}
+
+{% block locations %}
+  root {{ matomo_root }}/matomo/;
+
+  index index.php;
+
+  location / {
+    try_files $uri /index.php?$query_string;
+
+    location ~ \.php$ {
+      fastcgi_pass unix:/run/php-fpm-matomo.sock;
+      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+      include fastcgi_params;
+    }
+  }
+{% endblock %}
