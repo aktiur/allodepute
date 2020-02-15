@@ -1,7 +1,13 @@
+from random import choice
+
 from django.contrib.gis.db.models import PointField, GeometryField
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.utils.html import format_html
 from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.phonenumber import PhoneNumber
+
+from deputes.departements import departements
 
 
 class Depute(models.Model):
@@ -60,6 +66,14 @@ class Depute(models.Model):
     def image_name(self):
         return f"deputes/{self.code[2:]}.jpg"
 
+    def telephone(self):
+        return (
+            PhoneNumber.from_string(choice(self.telephones)) if self.telephones else ""
+        )
+
+    def email(self):
+        return choice(self.emails) if self.emails else ""
+
     class Meta:
         verbose_name = "Député"
         ordering = ("nom", "prenom")
@@ -85,6 +99,20 @@ class Circonscription(models.Model):
 
     contour = GeometryField(verbose_name="Contour", geography=True, null=True)
     centroid = PointField(verbose_name="Centre approximatif", geography=True, null=True)
+
+    @property
+    def nom(self):
+        if self.numero == 1:
+            ordinal_suffix = "ère"
+        else:
+            ordinal_suffix = "ème"
+
+        return format_html(
+            "{numero}<sup>{ordinal}</sup> circonscription {departement}",
+            numero=self.numero,
+            ordinal=ordinal_suffix,
+            departement=departements[self.departement].avec_charniere,
+        )
 
     def __str__(self):
         return f"{self.departement}-{self.numero}"

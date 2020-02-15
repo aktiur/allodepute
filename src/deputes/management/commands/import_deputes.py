@@ -42,8 +42,10 @@ class Command(BaseCommand):
                 defaults={
                     "nom": depute.nom,
                     "prenom": depute.prenom,
-                    "emails": depute.emails.split("|"),
-                    "telephones": depute.telephones.split("|"),
+                    "emails": depute.emails.split("|") if depute.emails else "",
+                    "telephones": depute.telephones.split("|")
+                    if depute.telephones
+                    else [],
                     "twitter": depute.twitter,
                     "facebook": depute.facebook,
                     "groupe": depute.groupe,

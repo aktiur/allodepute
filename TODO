@@ -1,7 +1,9 @@
 - Faire marcher le playbook django ==> problème de répertoire (manage.py vs Pipfile vs packagedir)
-- Intégrer les cadres
+   - Faire tourner le doit
+   - Gérer le dossier static
 - Intégrer les argus
 - Intégrer les tweets
 - Intégrer le fichier des numéros mis à jour
 - Installer MATOMO
 - Configurer MATOMO
+- Intégrer les cadres

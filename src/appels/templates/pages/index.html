@@ -1,97 +1,78 @@
-{% extends 'layout/main.html' %}
+{% extends 'appels/layout.html' %}
 {% load static %}
 
-{% block content %}
-<header>
-  <div class="container">
-    <h1>Allo député⋅e</h1>
-    <p>Ma retraite est en danger !</p>
+{% block main %}
+  <div class="row ">
+    <div class="col-8 col-md-5 mx-auto text-center sl">
+      <h2>Je veux parler à</h2>
+    </div>
   </div>
-</header>
-<main class="content">
-  <div class="container">
-    <h2>Le député du jour</h2>
-    <div class="card">
-      <div class="card__header">
-        Circonscription : {{ depute.circonscription }}
-      </div>
-      <div class="card__content">
-        <div class="card__id">
-          <div class="card__image">
-            <img src="{% static depute.image_name %}"  />
-          </div>
-          <div class="card__name">
-            <h3>{{ depute.prenom }} {{ depute.nom }}</h3>
-            <p>{{ depute.get_groupe_display }}</p>
-          </div>
-        </div>
-        <div class="card__info">
-          <dl>
-            <dt>Adresse email</dt>
-            <dd><a href="mailto:{{ depute.emails.0 }}">{{ depute.emails.0 }}</a></dd>
-            <dt>Numéro de téléphone</dt>
-            <dd>{{ depute.telephones.0 }}</dd>
-            <dt>Twitter</dt>
-            <dd><a href="https://twitter.com/{{ depute.twitter }}">{{ depute.twitter }}</a></dd>
-          </dl>
-        </div>
-      </div>
-      <div class="">
-        <label for="postcode">Je souhaite voir les informations du député d’une autre région :</label>
-        <input type="text" id="postcode" name="search" />
-      </div>
-    </div>
-    <div class="arguments">
-      <details>
-        <summary>
-          Argumentaire court (~30sec)
-        </summary>
-        <ul>
-          <li>Argument #1</li>
-          <li>Argument #2</li>
-          <li>Argument #3</li>
-        </ul>
-      </details>
-      <details>
-        <summary>
-          Argumentaire moyen (~3min)
-        </summary>
-        <ul>
-          <li>Argument #1</li>
-          <li>Argument #2</li>
-          <li>Argument #3</li>
-        </ul>
-      </details>
-      <details>
-        <summary>
-          Argumentaire long (~30min)
-        </summary>
-        <ul>
-          <li>Argument #1</li>
-          <li>Argument #2</li>
-          <li>Argument #3</li>
-        </ul>
-      </details>
-    </div>
-    <div class="callout">
-      <div class="phone-call">
-        <h2>J’appelle le·la député·e</h2>
-        <div class="panel">{{ depute.telephones.0 }}</div>
-      </div>
-      <div class="other-means">
-        <h2>Je n’aime pas le téléphone ?</h2>
+  <div class="row my-2">
+    <div class="col-lg-6">
+      <div class="px-3 py-4 p-md-4">
+        <h4 data-aos="fade-right">un⋅e député⋅e au hasard</h4>
         <div class="row">
-          <div class="panel tweet">
-            <h3>Je tweete</h3>
-            <a href="https://twitter.com/intent/tweet?button_hashtag=allodepute&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #allodepute</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%"></div>
+          <div class="col-md-6">
+            <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
+            <p>Députée LREM de la {{ depute.circonscription.nom }}</p>
           </div>
-          <div class="panel mail">
-            <h3>J’envoie un mail</h3>
-            <a class="button" href="mailto:jean-bernard.sempastous@assemblee-nationale.fr">Envoyer</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6  bg-light">
+      <div class="px-3 py-4 p-md-4">
+        <h4 data-aos="fade-left">un.e député.e près de chez moi</h4>
+        <div class="py-2">
+          <form id="form-cp">
+            <div class="form-group text-center form-row d-flex justify-content-center">
+              <label for="inputcp"
+                     class="col-5 col-md-3 col-lg-5 col-form-label">MON CODE POSTAL</label>
+              <div class="col-3">
+                <input type="text" class="form-control" id="inputcp"></div>
+              <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+            </div>
+          </form>
+        </div>
+        <div class="row pb-5 text-center">
+          <div class="col-4 px-1"><img src="{% static "img/cadre1.png" %}" class="scale img-fluid ">
+            <div class="mt-2">Prénom Nom</div>
+          </div>
+          <div class="col-4 px-1"><img src="{% static "img/cadre2.png" %}" class="scale img-fluid">
+            <div class="mt-2">Prénom Nom</div>
+          </div>
+          <div class="col-4 px-1"><img src="{% static "img/cadre3.png" %}" class="scale img-fluid">
+            <div class="mt-2">Prénom Nom</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</main>
-{% endblock content %}
+{% endblock %}
+
+{% block contact %}
+  <div class="row">
+    <div class="col-md-6 p-4" data-aos="fade-right">
+      <h4 class="sl">je l'appelle</h4>
+      <div class="d-flex mt-3">
+        <i class="d-block fa fa-phone mb-2 fa-3x mr-3"></i>
+        <h2>{{ depute.telephone.as_national }}</h2>
+      </div>
+    </div>
+    <div class="col-md-6 p-4 aos-init" data-aos="fade-left">
+      <h4 class="sl">et je lui parle de</h4>
+      <div class="my-3 dropdown dropright">
+        <button class="btn-cust b1 dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
+          argumentaires proposés
+        </button>
+        <div class="dropdown-menu" x-placement="right-start">
+          <a class="dropdown-item" data-toggle="modal" data-target="#argu1">Niveau des pensions</a>
+          <a class="dropdown-item">Age pivot</a>
+          <a class="dropdown-item">Carrières longues</a>
+          <a class="dropdown-item">Etudes d'impact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
