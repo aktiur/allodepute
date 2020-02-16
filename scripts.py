@@ -1,3 +1,4 @@
+import pandas as pd
 import csv
 import json
 from pathlib import Path
@@ -51,8 +52,12 @@ def correspondances_partis(dir):
     }
 
 
-def masser_fichier_deputes(dir: Path, dest: Path, corr_groupes, corr_partis):
+def masser_fichier_deputes(
+    dir: Path, dest: Path, corr_groupes, corr_partis, complements
+):
     files = list(dir.glob("PA*.json"))
+
+    comp = pd.read_csv(complements, index_col="code", dtype={"telephones": str})
 
     with dest.open("w") as fd_out:
         w = csv.DictWriter(
@@ -104,11 +109,14 @@ def masser_fichier_deputes(dir: Path, dest: Path, corr_groupes, corr_partis):
                 a["valElec"] for a in adresses if a[TYPE] == TYPE_ADDRESSES["email"]
             )
 
-            telephones = "|".join(
+            telephones = {
                 PhoneNumber.from_string(a["valElec"], region="FR").as_e164
                 for a in adresses
                 if a[TYPE] == TYPE_ADDRESSES["telephone"]
-            )
+            }
+            if code in comp.index:
+                telephones.update(comp.loc[code, "telephones"].split("|"))
+            telephones = "|".join(telephones)
 
             twitter = "|".join(
                 a["valElec"].strip("@")

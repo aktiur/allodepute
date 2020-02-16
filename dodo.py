@@ -93,14 +93,22 @@ def task_correspondances():
 
 def task_masser_fichier_deputes():
     target = DATA_DIR / "deputes.csv"
+    complements = DATA_DIR / "complements_telephones.csv"
     return {
+        "file_dep": [complements],
         "calc_dep": ["liste_deputes"],
         "targets": [target],
         "getargs": {
             "corr_groupes": ("correspondances", "groupes"),
             "corr_partis": ("correspondances", "partis"),
         },
-        "actions": [(masser_fichier_deputes, [], {"dir": AN_DIR, "dest": target})],
+        "actions": [
+            (
+                masser_fichier_deputes,
+                [],
+                {"dir": AN_DIR, "dest": target, "complements": complements},
+            )
+        ],
     }
 
 
