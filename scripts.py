@@ -61,6 +61,7 @@ def masser_fichier_deputes(dir: Path, dest: Path, corr_groupes, corr_partis):
                 "code",
                 "nom",
                 "prenom",
+                "genre",
                 "groupe",
                 "parti",
                 "emails",
@@ -92,6 +93,7 @@ def masser_fichier_deputes(dir: Path, dest: Path, corr_groupes, corr_partis):
 
             nom = ident["nom"]
             prenom = ident["prenom"]
+            genre = "M" if ident["civ"] == "M." else "F"
 
             adresses = content["adresses"]["adresse"]
 
@@ -142,6 +144,7 @@ def masser_fichier_deputes(dir: Path, dest: Path, corr_groupes, corr_partis):
                     "code": code,
                     "nom": nom,
                     "prenom": prenom,
+                    "genre": genre,
                     "groupe": groupe,
                     "parti": parti,
                     "emails": emails,

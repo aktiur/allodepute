@@ -15,7 +15,7 @@
           <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%"></div>
           <div class="col-md-6">
             <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
-            <p>Députée LREM de la {{ depute.circonscription.nom }}</p>
+            <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
           </div>
         </div>
       </div>

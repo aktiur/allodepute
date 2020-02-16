@@ -16,6 +16,11 @@ class Depute(models.Model):
     nom = models.CharField(verbose_name="Nom", max_length=100)
     prenom = models.CharField(verbose_name="Prénom", max_length=100)
 
+    GENRE_MASCULIN = "M"
+    GENRE_FEMININ = "F"
+    GENRE_CHOIX = ((GENRE_MASCULIN, "masculin"), (GENRE_FEMININ, "féminin"))
+    genre = models.CharField(verbose_name="Genre", max_length=1, default="F")
+
     emails = ArrayField(verbose_name="Emails", base_field=models.EmailField())
     telephones = ArrayField(
         verbose_name="Numéros de téléphone",
@@ -73,6 +78,9 @@ class Depute(models.Model):
 
     def email(self):
         return choice(self.emails) if self.emails else ""
+
+    def titre(self):
+        return "Députée" if self.genre == "F" else "Député"
 
     class Meta:
         verbose_name = "Député"
