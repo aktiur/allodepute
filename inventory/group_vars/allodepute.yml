@@ -18,7 +18,7 @@ django_domain: "{{ app_domain }}"
 django_project_repo: "{{ app_repo }}"
 django_env:
   DATABASE_URL: "postgis://%2Fvar%2Frun%2Fpostgresql/{{ db_name }}"
-  STATIC_DIRS: ""
+  STATIC_DIRS: "/srv/allodepute/repo/static/"
 django_repo_base: ""
 django_secret: "fjoeifjiozejfzoefẐQ"
 django_src_path: "src/"

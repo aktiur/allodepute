@@ -32,7 +32,7 @@ class Depute(models.Model):
 
     GROUPE_LREM = "LaREM"
     GROUPE_MODEM = "MODEM"
-    GROUPE_SOC = " SOC"
+    GROUPE_SOC = "SOC"
     GROUPE_LR = "LR"
     GROUPE_GDR = "GDR"
     GROUPE_LT = "LT"

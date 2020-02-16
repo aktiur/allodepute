@@ -99,7 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-GROUPES_MAJORITE = ["LREM", "MODEM", "UAI"]
+GROUPES_MAJORITE = ["LaREM", "MODEM", "UDI-AGIR"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

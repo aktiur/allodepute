@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
                         choices=[
                             ("LREM", "La République en Marche"),
                             ("MODEM", "Mouvement démocrate et apparentés"),
-                            (" SOC", "Socialiste et apparentés"),
+                            ("SOC", "Socialiste et apparentés"),
                             ("LR", "Les Républicains"),
                             ("GDR", "Gauche démocrate et républicaine"),
                             ("LT", "Libertés et Territoires"),

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -12,6 +13,11 @@ class HomeView(TemplateView):
     template_name = "pages/index.html"
 
     def get_context_data(self, **kwargs):
-        depute = Depute.objects.order_by("?").first()
+        depute = (
+            Depute.objects.filter(groupe__in=settings.GROUPES_MAJORITE)
+            .exclude(telephones=[])
+            .order_by("?")
+            .first()
+        )
 
         return super().get_context_data(**kwargs, depute=depute)
