@@ -50,11 +50,6 @@ def task_telecharger():
 def task_unzip_assemblee_nationale():
     zip_path = DATA_DIR / "assemblee_nationale.zip"
 
-    with ZipFile(zip_path) as z:
-        targets = [
-            AN_DIR / Path(f.filename).name for f in z.infolist() if not f.is_dir()
-        ]
-
     def unzip_an():
         with ZipFile(zip_path) as z:
             for file in z.infolist():
@@ -67,7 +62,6 @@ def task_unzip_assemblee_nationale():
     return {
         "task_dep": ["dossier:an"],
         "file_dep": [zip_path],
-        "targets": targets,
         "actions": [unzip_an],
     }
 
