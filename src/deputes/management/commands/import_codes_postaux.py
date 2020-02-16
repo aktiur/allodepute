@@ -23,7 +23,7 @@ class Command(BaseCommand):
                 "Code_commune_INSEE": "insee",
                 "Code_postal": "zip",
                 "Nom_commune": "nom",
-                "coordonnees_gps": "coords",
+                "Coordonnées_GPS": "coords",
             }
         )
         coords = df.coords.str.split(",", expand=True)

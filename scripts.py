@@ -95,6 +95,9 @@ def masser_fichier_deputes(dir: Path, dest: Path, corr_groupes, corr_partis):
 
             adresses = content["adresses"]["adresse"]
 
+            if not isinstance(adresses, list):
+                adresses = [adresses]
+
             emails = "|".join(
                 a["valElec"] for a in adresses if a[TYPE] == TYPE_ADDRESSES["email"]
             )

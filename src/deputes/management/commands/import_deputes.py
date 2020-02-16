@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 defaults={
                     "nom": depute.nom,
                     "prenom": depute.prenom,
-                    "emails": depute.emails.split("|") if depute.emails else "",
+                    "emails": depute.emails.split("|") if depute.emails else [],
                     "telephones": depute.telephones.split("|")
                     if depute.telephones
                     else [],
