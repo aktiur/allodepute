@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?Roboto:400,700&display=swap");
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -53,7 +53,7 @@ body {
   margin: 0;
   font-family: Roboto, sans-serif;
   font-size: 1rem;
-  font-weight: 200;
+  font-weight: 400;
   line-height: 1.5;
   color: #505075;
   text-align: left;
@@ -7151,7 +7151,9 @@ h6 {
 
 .bloc3 {
   position: relative;
-  margin-top: -80px !important; }
+  margin-top: -80px !important;
+  z-index: 10;  /* pour que le dropdown soit au-dessus des éléments alignés */
+}
 
 .form-control {
   border: none;

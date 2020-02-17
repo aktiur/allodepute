@@ -12,7 +12,8 @@
       <div class="px-3 py-4 p-md-4">
         <h4 data-aos="fade-right">un⋅e député⋅e au hasard</h4>
         <div class="row">
-          <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%" alt="Photographie de {{ depute.prenom }} {{ depute.nom }}"></div>
+          <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%"
+                                     alt="Photographie de {{ depute.prenom }} {{ depute.nom }}"></div>
           <div class="col-md-6">
             <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
             <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
@@ -51,7 +52,7 @@
 {% endblock %}
 
 {% block contact %}
-  <div class="row">
+  <div class="row" style="z-index: 10;">
     <div class="col-md-6 p-4" data-aos="fade-right">
       <h4 class="sl">je l'appelle</h4>
       <div class="d-flex mt-3">
@@ -66,13 +67,37 @@
           argumentaires proposés
         </button>
         <div class="dropdown-menu" x-placement="right-start">
-          <a class="dropdown-item" data-toggle="modal" data-target="#argu1">Niveau des pensions</a>
-          <a class="dropdown-item">Age pivot</a>
-          <a class="dropdown-item">Carrières longues</a>
-          <a class="dropdown-item">Etudes d'impact</a>
+          {% for argumentaire in argumentaires %}
+            <a class="dropdown-item" data-toggle="modal" data-target="#{{ argumentaire.id }}">
+              {{ argumentaire.titre }}
+            </a>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
+{% endblock %}
 
+{% block modals %}
+  {% for argumentaire in argumentaires %}
+    <div class="modal fade" id="{{ argumentaire.id }}">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
+          </div>
+          <div class="p-2 bg-secondary">
+            <h5 class="text-center">{{ argumentaire.titre }}</h5>
+          </div>
+          <div class="modal-body">
+            {% include "argumentaires/intro.md" %}
+            {% include argumentaire.template_name %}
+            {% include "argumentaires/conclusion.md" %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-cust b2" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock %}

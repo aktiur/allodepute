@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -20,4 +22,15 @@ class HomeView(TemplateView):
             .first()
         )
 
-        return super().get_context_data(**kwargs, depute=depute)
+        argumentaires = [
+            {
+                "id": Path(template_name).stem,
+                "titre": titre,
+                "template_name": template_name,
+            }
+            for titre, template_name in settings.ARGUMENTAIRES
+        ]
+
+        return super().get_context_data(
+            **kwargs, depute=depute, argumentaires=argumentaires
+        )

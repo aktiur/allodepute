@@ -4,6 +4,7 @@
 .doit.*
 /vendors
 /pass.vault
+__pycache__
 
 # photos députés
 /static/

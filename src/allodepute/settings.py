@@ -61,21 +61,26 @@ ROOT_URLCONF = "allodepute.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+            ],
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    ["appels.loaders.MarkdownLoader"],
+                )
             ]
+            if not DEBUG
+            else ["appels.loaders.MarkdownLoader"],
         },
     }
 ]
 
 WSGI_APPLICATION = "allodepute.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -85,7 +90,6 @@ DATABASES = {
         default="postgis://allodepute:password@localhost/allodepute"
     )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -114,7 +118,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -122,3 +125,30 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.environ.get("STATIC_ROOT", BASE_DIR / "static")
 
 STATICFILES_DIRS = [d for d in os.environ.get("STATIC_DIRS", "").split(":") if d]
+
+ARGUMENTAIRES = [
+    (
+        "Je ne veux pas que le niveau des pensions baisse",
+        "argumentaires/niveau-pensions.md",
+    ),
+    (
+        "Je ne veux pas avoir à travailler plus longtemps",
+        "argumentaires/travailler-plus-longtemps.md",
+    ),
+    (
+        "Les femmes doivent pouvoir être autonomes au moment de la retraite",
+        "argumentaires/autonomie-femmes.md",
+    ),
+    (
+        "Je suis contre la retraite par capitalisation",
+        "argumentaires/capitalisation.md",
+    ),
+    (
+        "Je ne veux pas que cette réforme nous soit imposée",
+        "argumentaires/projet-impose.md",
+    ),
+    (
+        "Je ne veux pas que les jeunes d'aujourd'hui soient les sacrifié⋅es du système",
+        "argumentaires/projet-impose.md",
+    ),
+]

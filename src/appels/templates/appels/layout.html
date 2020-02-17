@@ -175,9 +175,10 @@
       <div class="col-md-2 "></div>
       <div class="col-md-10  bg-secondary p-4 p-lg-4">
         {% block header %}
-          <h3>vous aussi vous ne l’aimez pas cette réforme&nbsp;?</h3>
-          <p class="lead"> Faisons le tous savoir aux député.es de la majorité ! Alors qu’ils discutent du projet dans
-            l’hémicycle, assurons-nous que chaque député.e En Marche reçoive chaque jour au moins un coup de fil. </p>
+          <h3>vous non plus vous ne l’aimez pas cette réforme&nbsp;?</h3>
+          <p class="lead"> Faisons le tous savoir aux député.es de la majorité et convainquons-les ! Alors qu’ils
+            discutent du projet dans l’hémicycle, assurons-nous que chaque député⋅e En Marche reçoive chaque jour au
+            moins un coup de fil. </p>
         {% endblock %}
       </div>
     </div>
@@ -235,39 +236,9 @@
         src="{% static "img/twitter.svg" %}" height="40px"></div>
   </div>
 </footer>
-<!-- modals-Argumentaires -->
-<div class="modal fade" id="argu1">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
-      </div>
-      <div class="p-2 bg-secondary">
-        <h5 class="text-center">Le projet du gouvernement va faire baisser le niveau des pensions</h5>
-      </div>
-      <div class="modal-body">
-        <p>→ Bonjour, je m’appelle xxxxxxxxx, je souhaiterais parler avec le/la député·e.<br><span class="text-clair"> Si le/la député·e est là, on continue avec lui/elle, sinon on échange avec l’assistant·e parlementaire.</span><br>→
-          Je voudrais parler de la réforme des retraites : je suis contre ce projet et il me semble important que le/la
-          député·e vote contre ce projet. C’est en effet un projet qui va faire baisser le niveau des pensions. Parce
-          que le gouvernement veut plafonner les ressources allouées aux retraites à 14% du produit intérieur brut.
-          Alors que la part des personnes âgées va augmenter (les +65 ans sont 20% de la population aujourd’hui, ils
-          seront 27% en 2050). Cela va conduire à la baisse du niveau des pensions pour tout le monde.<br>→ Je suis
-          contre la baisse du niveau des pensions. Je veux que les retraité·e·s continuent à avoir un niveau de vie
-          proche de celui des actifs·ves. </p>
-        <hr>
-        <h6> Réponses possibles de l’interlocuteur </h6>
-        <p><span class="text-clair">• Ce sont les réformes précédentes qui ont conduit à la baisse du niveau des pensions</span>
-          <br> → La baisse du niveau des pensions n’est pas inéluctable, en tant que député·e on peut changer les choses
-          : refusez le plafonnement à 14% du PIB, exigez la hausse du financement des retraites, et votez des lois qui
-          pourraient rétablir un système qui garantisse le maintien du niveau de vie au moment du passage à la retraite
-          / une parité de niveau de vie entre actifs·ves et retraité·e·s.<br><span class="text-clair"> • 14% c’est déjà beaucoup, il y a trop de dépenses publiques.</span><br>
-          → Ce sont nos retraites, c’est à nous de décider si nous voulons adapter le financement aux besoins. </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-cust b2" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+{% block modals %}{% endblock %}
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script style="">
   AOS.init();
