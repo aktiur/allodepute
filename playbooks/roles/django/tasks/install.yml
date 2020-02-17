@@ -1,0 +1,29 @@
+- name: install python
+  import_role: { name: python3 }
+
+- name: ensure libsystemd headers are installed
+  apt:
+    name: libsystemd-dev
+    state: latest
+
+- name: create app group
+  group: name={{ django_group }} system=yes
+
+- name: create app user
+  user: name={{ django_user }} group={{ django_group }} system=yes
+
+- name: create django directory
+  file:
+    path: "{{ django_directory }}"
+    state: directory
+    mode: 0755
+    owner: "{{ django_user }}"
+    group: "{{ django_group }}"
+
+- name: create log directory
+  file:
+    path: "{{ django_log_directory }}"
+    state: directory
+    mode: 0770
+    owner: "{{ django_user }}"
+    group: "{{ django_group }}"

@@ -1,0 +1,108 @@
+- name: clone code
+  git:
+    repo: "{{ django_project_repo }}"
+    clone: yes
+    update: yes
+    force: yes
+    dest: "{{ django_repo_directory }}"
+    version: master
+  notify:
+    - restart django
+  tags: ["deploy"]
+
+- name: update virtualenv
+  command: pipenv sync
+  args:
+    chdir: "{{ django_pipfile }}"
+  become: true
+  become_user: "{{ django_user }}"
+  notify:
+    - restart django
+  tags: ["deploy"]
+
+- name: ensure uwsgi is present
+  command: pipenv run pip install uwsgi
+  args:
+    chdir: "{{ django_pipfile }}"
+  become: true
+  become_user: "{{ django_user }}"
+  tags: ["deploy"]
+
+- name: ensure .env is present
+  template:
+    src: env.j2
+    dest: "{{ django_pipfile }}/.env"
+    mode: 0500
+    owner: "{{ django_user }}"
+    group: "{{ django_group }}"
+  notify:
+    - restart django
+  tags: ["deploy"]
+
+- name: apply database migrations
+  command: "pipenv run {{ django_manage }} migrate --noinput"
+  args:
+    chdir: "{{ django_pipfile }}"
+  become: true
+  become_user: "{{ django_user }}"
+  register: migrations
+  changed_when: "'No migrations to apply.' not in migrations.stdout"
+  tags: ["deploy"]
+
+- name: collect staticfiles
+  command: "pipenv run {{ django_manage }} collectstatic --noinput"
+  args:
+    chdir: "{{ django_pipfile }}"
+  become: true
+  become_user: "{{ django_user }}"
+  register: collectstatic
+  changed_when: not (collectstatic.stdout is search("\\b0 static files copied"))
+  tags: ["deploy"]
+
+- name: ensure uwsgi config directory exists
+  file:
+    path: "/etc/uwsgi/apps-available"
+    state: directory
+
+- name: copy uwsgi config files
+  template:
+    src: django.ini.j2
+    dest: /etc/uwsgi/apps-available/{{ django_app_name }}-django.ini
+  notify:
+    - restart django
+
+- name: install uwsgi logrotate files
+  template:
+    src: logrotate.j2
+    dest: "/etc/logrotate.d/django"
+
+- name: install uwsgi service files
+  template:
+    src: django.service.j2
+    dest: /etc/systemd/system/{{ django_app_name }}-django.service
+
+- name: ensure the uwsgi services are enabled and started
+  service:
+    name: "{{django_app_name}}-django"
+    enabled: yes
+    state: started
+
+- name: ensure nginx host configuration is present
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/01-{{ django_app_name }}-django.conf
+  notify:
+    - reload nginx
+  vars:
+    main_domain: "{{ django_domain }}"
+    redirect_domains: "{{ django_redirect_domains|default(omit) }}"
+  when: django_nginx_conf
+
+- name: ensure nginx host configuration is enabled
+  file:
+    path: /etc/nginx/sites-enabled/01-{{ django_app_name }}-django.conf
+    src: ../sites-available/01-{{ django_app_name }}-django.conf
+    state: link
+  notify:
+    - reload nginx
+  when: django_nginx_conf
