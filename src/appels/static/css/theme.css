@@ -7231,3 +7231,46 @@ button,
 .scale:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1); }
+
+
+.adroite {
+  margin: 0 0 0 auto;
+}
+
+.cadre1, .cadre2, .cadre3, .cadre4 {
+  border: 0 solid transparent;
+  width: 295px;
+  height: 295px;
+
+  background-size: contain, auto auto;
+  background-repeat: no-repeat;
+  background-clip: padding-box, content-box;
+}
+
+.cadre1 {
+  background-position: 0 0, 72px 90px;
+  --cadre: url("/static/img/cadre1.png")
+}
+
+.cadre2 {
+  border-width: 57px 28.5px 0;
+  background-position: 0 0, 44px 52px;
+  background-clip: padding-box, content-box;
+  padding: 50px 36px 20px;
+  --cadre: url("/static/img/cadre2.png")
+}
+
+.cadre3 {
+  border-width: 57px 28.5px 0;
+  background-position: 0 0, 41px 40px;
+  padding: 35px 40px 25px;
+  --cadre: url("/static/img/cadre3.png")
+}
+
+.cadre4 {
+  border-width: 62px 31px 0;
+
+  background-position: 0 0, 41px 32px;
+  padding: 40px 40px 25px;
+  --cadre: url("/static/img/cadre4.png")
+}

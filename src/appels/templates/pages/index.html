@@ -3,6 +3,7 @@
 
 {% block main %}
   <!-- deputes -->
+
   <div class="py-2">
     <div class="container-fluid">
       <div class="row ">
@@ -12,16 +13,14 @@
       </div>
       <div class="row my-2">
         <div class="col-lg-6">
-          <div class="px-3 py-4 p-md-4">
+          <div class="px-3 py-4 p-md-4 text-right align-items-end">
             <h4 data-aos="fade-right">un⋅e député⋅e au hasard</h4>
-            <div class="row">
-              <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%"
-                                         alt="Photographie de {{ depute.prenom }} {{ depute.nom }}"></div>
-              <div class="col-md-6">
-                <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
-                <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
-              </div>
+            <div>
+              <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
+              <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
             </div>
+            <div class="adroite {{ cadre }}"
+                 style="background-image: var(--cadre),  url({% static depute.image_name %});"></div>
           </div>
         </div>
         <div class="col-lg-6  bg-light">

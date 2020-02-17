@@ -1,4 +1,5 @@
 from pathlib import Path
+from random import random, randint
 
 from django.conf import settings
 from django.shortcuts import render
@@ -31,6 +32,8 @@ class HomeView(TemplateView):
             for titre, template_name in settings.ARGUMENTAIRES
         ]
 
+        cadre = randint(1, 4)
+
         return super().get_context_data(
-            **kwargs, depute=depute, argumentaires=argumentaires
+            **kwargs, depute=depute, argumentaires=argumentaires, cadre=f"cadre{cadre}"
         )
