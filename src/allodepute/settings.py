@@ -127,28 +127,16 @@ STATIC_ROOT = os.environ.get("STATIC_ROOT", BASE_DIR / "static")
 STATICFILES_DIRS = [d for d in os.environ.get("STATIC_DIRS", "").split(":") if d]
 
 ARGUMENTAIRES = [
-    (
-        "Je ne veux pas que le niveau des pensions baisse",
-        "argumentaires/niveau-pensions.md",
-    ),
-    (
-        "Je ne veux pas avoir à travailler plus longtemps",
-        "argumentaires/travailler-plus-longtemps.md",
-    ),
+    ("Je ne veux pas que le niveau des pensions baisse", "niveau-pensions",),
+    ("Je ne veux pas avoir à travailler plus longtemps", "travailler-plus-longtemps",),
     (
         "Les femmes doivent pouvoir être autonomes au moment de la retraite",
-        "argumentaires/autonomie-femmes.md",
+        "autonomie-femmes",
     ),
-    (
-        "Je suis contre la retraite par capitalisation",
-        "argumentaires/capitalisation.md",
-    ),
-    (
-        "Je ne veux pas que cette réforme nous soit imposée",
-        "argumentaires/projet-impose.md",
-    ),
+    ("Je suis contre la retraite par capitalisation", "capitalisation",),
+    ("Je ne veux pas que cette réforme nous soit imposée", "projet-impose",),
     (
         "Je ne veux pas que les jeunes d'aujourd'hui soient les sacrifié⋅es du système",
-        "argumentaires/projet-impose.md",
+        "projet-impose",
     ),
 ]

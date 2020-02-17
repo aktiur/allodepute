@@ -19,13 +19,13 @@
               <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
               <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
             </div>
-            <div class="adroite {{ cadre }}"
+            <div class="adroite cadre1"
                  style="background-image: var(--cadre),  url({% static depute.image_name %});"></div>
           </div>
         </div>
         <div class="col-lg-6  bg-light">
           <div class="px-3 py-4 p-md-4">
-            <h4 data-aos="fade-left">un.e député.e près de chez moi</h4>
+            <h4 data-aos="fade-left">un⋅e député⋅e près de chez moi</h4>
             <div class="py-2">
               <form id="form-cp">
                 <div class="form-group text-center form-row d-flex justify-content-center">
@@ -38,13 +38,13 @@
               </form>
             </div>
             <div class="row pb-5 text-center">
-              <div class="col-4 px-1"><img src="{% static "img/cadre1.png" %}" class="scale img-fluid ">
+              <div class="col-4 px-1"><img src="{% static "img/c1.png" %}" class="scale img-fluid ">
                 <div class="mt-2">Prénom Nom</div>
               </div>
-              <div class="col-4 px-1"><img src="{% static "img/cadre2.png" %}" class="scale img-fluid">
+              <div class="col-4 px-1"><img src="{% static "img/c2.png" %}" class="scale img-fluid">
                 <div class="mt-2">Prénom Nom</div>
               </div>
-              <div class="col-4 px-1"><img src="{% static "img/cadre3.png" %}" class="scale img-fluid">
+              <div class="col-4 px-1"><img src="{% static "img/c3.png" %}" class="scale img-fluid">
                 <div class="mt-2">Prénom Nom</div>
               </div>
             </div>
@@ -87,27 +87,23 @@
       <div class="col-lg-6 p-3">
         <h5 class="sl">Je lui envoie aussi un tweet</h5>
         <div class="row pt-2" data-aos="fade-up-right">
-          <div class="col-6">
-            <div class="reseau"></div>
-            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
-          </div>
-          <div class="col-6">
-            <div class="reseau"></div>
-            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
-          </div>
+          {% for tweet in tweets %}
+            <div class="col-6">
+              <div class="reseau">
+                {{ tweet }}
+              </div>
+              <a href="https://twitter.com/intent/tweet?text={{ adresse_twitter }}%20{{ tweet|urlencode }}&hashtags={{ "allodéputé"|urlencode }}"
+                 class="btn-cust b2 my-2" target="_blank">Envoyer ce tweet</a>
+            </div>
+            {% empty %}
+            <div class="col align-self-center lead">Nous ne connaissons pas le compte twitter de ce député !</div>
+          {% endfor %}
         </div>
       </div>
       <div class="col-lg-6 p-3">
         <h5 class="sl">Je lui envoie aussi un mail</h5>
-        <div class="row pt-2" data-aos="fade-up-left">
-          <div class="col-6">
-            <div class="reseau"></div>
-            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
-          </div>
-          <div class="col-6">
-            <div class="reseau"></div>
-            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
-          </div>
+        <div class="row pt-2 text-center" data-aos="fade-up-left">
+          <a class="btn-cust b2 my-2 " href="{{ mailto_link }}" target="_blank">Je lui envoie un email</a>
         </div>
       </div>
     </div>

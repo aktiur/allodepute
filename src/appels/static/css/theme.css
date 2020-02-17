@@ -7206,7 +7206,10 @@ button,
   display: block;
   border: 1px solid #505075;
   height: 230px;
-  border-radius: 0.5rem; }
+  border-radius: 0.5rem;
+  padding: 0.5em;
+  overflow: hidden;
+}
 
 .icon {
   position: absolute;

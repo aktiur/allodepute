@@ -1,0 +1,19 @@
+{{ formule }}
+
+Le gouvernement a décidé, malgré un avis très critique du conseil d’État, de présenter au parlement en procédure accélérée son projet de loi pour réformer le système de retraite de notre pays.
+
+Tout d’abord, la procédure en accéléré imposée par le gouvernement ne peut être acceptable pour l’examen d’un texte qui affecte le niveau de vie de l’ensemble du peuple français aujourd’hui mais aussi à l’avenir.
+
+Il n’est pas concevable de voter une loi alors que le conseil d’Etat n’a pas eu le temps de « garantir au mieux la sécurité juridique » du texte.
+
+Il n’est pas envisageable de voter un texte qui engage l’ensemble des citoyens à cotiser de manière obligatoire toute leur vie et sur lequel reposent leurs conditions de survie à la retraite alors que ce texte contient des  « projections financières lacunaires » et que la « définition d’éléments structurants du nouveau système de retraite » n’est pas encore déterminée et nécessite un recours à de nombreuses ordonnances. Cette situation « fait perdre la visibilité d’ensemble qui est nécessaire à l’appréciation des conséquences de la réforme et, partant, de sa constitutionnalité et de sa conventionalité ».
+
+La mise en place du nouveau système de retraite, imposant l’équilibre financier plutôt que garantir le niveau des pensions, impliquerait pour les uns d’importantes augmentations de cotisation et pour d’autres une baisse dramatique des pensions, entrainant par voie de conséquence une sérieuse baisse du pouvoir d’achat des français et l’obligation pour ceux qui le pourront de se constituer une retraite par capitalisation.
+
+La réforme devait mettre en place un système de retraite « universel ». Or il ne l’est pas, en raison des mesures compensatoires « promises » aux uns et aux autres, parfois au mépris de la constitution. En outre, ces mesures achèvent de nuire à la visibilité de l’impact réel de la réforme et si, elles étaient appliquées, pèseraient sur la situation financière de l’État. Loin de simplifier le système de retraite, la coexistence des anciens régimes et du nouveau système à points avec les aménagements propres à certaines professions va générer une période de transition longue, complexe et très couteuse pour l’État.
+
+Enfin, comment voter une réforme qui modifie totalement le contrat social unissant l’Etat à l’ensemble de ses citoyens alors que cette réforme est réprouvée par une large majorité de français et n’est manifestement pas dans leur intérêt ?
+
+{{ formule }}, je vous demande, dans l’intérêt de tous les citoyens et de la France que vous représentez, de ne pas adopter cette loi qui réduit en cendres un des pans essentiels de justice sociale de notre pays, fait peser une grande incertitude sur les ressources financières présentes et à venir de l’ensemble des citoyens, grèvera lourdement les finances publiques et aura très certainement un impact négatif sur la richesse de notre pays.
+
+Veuillez agréer, {{ formule }}, l’expression de mon profond respect.
