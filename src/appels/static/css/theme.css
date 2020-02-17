@@ -7249,7 +7249,7 @@ button,
 
 .cadre1 {
   background-position: 0 0, 72px 90px;
-  --cadre: url("/static/img/cadre1.png")
+  --cadre: url("/static/img/c1.png")
 }
 
 .cadre2 {
@@ -7257,14 +7257,14 @@ button,
   background-position: 0 0, 44px 52px;
   background-clip: padding-box, content-box;
   padding: 50px 36px 20px;
-  --cadre: url("/static/img/cadre2.png")
+  --cadre: url("/static/img/c2.png")
 }
 
 .cadre3 {
   border-width: 57px 28.5px 0;
   background-position: 0 0, 41px 40px;
   padding: 35px 40px 25px;
-  --cadre: url("/static/img/cadre3.png")
+  --cadre: url("/static/img/c3.png")
 }
 
 .cadre4 {
@@ -7272,5 +7272,5 @@ button,
 
   background-position: 0 0, 41px 32px;
   padding: 40px 40px 25px;
-  --cadre: url("/static/img/cadre4.png")
+  --cadre: url("/static/img/c4.png")
 }
