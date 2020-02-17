@@ -2,80 +2,118 @@
 {% load static %}
 
 {% block main %}
-  <div class="row ">
-    <div class="col-8 col-md-5 mx-auto text-center sl">
-      <h2>Je veux parler à</h2>
-    </div>
-  </div>
-  <div class="row my-2">
-    <div class="col-lg-6">
-      <div class="px-3 py-4 p-md-4">
-        <h4 data-aos="fade-right">un⋅e député⋅e au hasard</h4>
-        <div class="row">
-          <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%"
-                                     alt="Photographie de {{ depute.prenom }} {{ depute.nom }}"></div>
-          <div class="col-md-6">
-            <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
-            <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
-          </div>
+  <!-- deputes -->
+  <div class="py-2">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-8 col-md-5 mx-auto text-center sl">
+          <h2>Je veux parler à</h2>
         </div>
       </div>
-    </div>
-    <div class="col-lg-6  bg-light">
-      <div class="px-3 py-4 p-md-4">
-        <h4 data-aos="fade-left">un.e député.e près de chez moi</h4>
-        <div class="py-2">
-          <form id="form-cp">
-            <div class="form-group text-center form-row d-flex justify-content-center">
-              <label for="inputcp"
-                     class="col-5 col-md-3 col-lg-5 col-form-label">MON CODE POSTAL</label>
-              <div class="col-3">
-                <input type="text" class="form-control" id="inputcp"></div>
-              <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+      <div class="row my-2">
+        <div class="col-lg-6">
+          <div class="px-3 py-4 p-md-4">
+            <h4 data-aos="fade-right">un⋅e député⋅e au hasard</h4>
+            <div class="row">
+              <div class="col-md-6"><img src="{% static depute.image_name %}" class="img-fluid" width="100%"
+                                         alt="Photographie de {{ depute.prenom }} {{ depute.nom }}"></div>
+              <div class="col-md-6">
+                <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
+                <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
+              </div>
             </div>
-          </form>
+          </div>
         </div>
-        <div class="row pb-5 text-center">
-          <div class="col-4 px-1"><img src="{% static "img/cadre1.png" %}" class="scale img-fluid ">
-            <div class="mt-2">Prénom Nom</div>
-          </div>
-          <div class="col-4 px-1"><img src="{% static "img/cadre2.png" %}" class="scale img-fluid">
-            <div class="mt-2">Prénom Nom</div>
-          </div>
-          <div class="col-4 px-1"><img src="{% static "img/cadre3.png" %}" class="scale img-fluid">
-            <div class="mt-2">Prénom Nom</div>
+        <div class="col-lg-6  bg-light">
+          <div class="px-3 py-4 p-md-4">
+            <h4 data-aos="fade-left">un.e député.e près de chez moi</h4>
+            <div class="py-2">
+              <form id="form-cp">
+                <div class="form-group text-center form-row d-flex justify-content-center">
+                  <label for="inputcp"
+                         class="col-5 col-md-3 col-lg-5 col-form-label">MON CODE POSTAL</label>
+                  <div class="col-3">
+                    <input type="text" class="form-control" id="inputcp"></div>
+                  <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                </div>
+              </form>
+            </div>
+            <div class="row pb-5 text-center">
+              <div class="col-4 px-1"><img src="{% static "img/cadre1.png" %}" class="scale img-fluid ">
+                <div class="mt-2">Prénom Nom</div>
+              </div>
+              <div class="col-4 px-1"><img src="{% static "img/cadre2.png" %}" class="scale img-fluid">
+                <div class="mt-2">Prénom Nom</div>
+              </div>
+              <div class="col-4 px-1"><img src="{% static "img/cadre3.png" %}" class="scale img-fluid">
+                <div class="mt-2">Prénom Nom</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-{% endblock %}
 
-{% block contact %}
-  <div class="row" style="z-index: 10;">
-    <div class="col-md-6 p-4" data-aos="fade-right">
-      <h4 class="sl">je l'appelle</h4>
-      <div class="d-flex mt-3">
-        <i class="d-block fa fa-phone mb-2 fa-3x mr-3"></i>
-        <h2>{{ depute.telephone.as_national }}</h2>
+  <!-- infos-contact -->
+  <div class="container bloc3  bg-primary">
+    <div class="row" style="z-index: 10;">
+      <div class="col-md-6 p-4" data-aos="fade-right">
+        <h4 class="sl">je l'appelle</h4>
+        <div class="d-flex mt-3">
+          <i class="d-block fa fa-phone mb-2 fa-3x mr-3"></i>
+          <h2>{{ depute.telephone.as_national }}</h2>
+        </div>
       </div>
-    </div>
-    <div class="col-md-6 p-4 aos-init" data-aos="fade-left">
-      <h4 class="sl">et je lui parle de</h4>
-      <div class="my-3 dropdown dropright">
-        <button class="btn-cust b1 dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
-          argumentaires proposés
-        </button>
-        <div class="dropdown-menu" x-placement="right-start">
-          {% for argumentaire in argumentaires %}
-            <a class="dropdown-item" data-toggle="modal" data-target="#{{ argumentaire.id }}">
-              {{ argumentaire.titre }}
-            </a>
-          {% endfor %}
+      <div class="col-md-6 p-4 aos-init" data-aos="fade-left">
+        <h4 class="sl">et je lui parle de</h4>
+        <div class="my-3 dropdown dropright">
+          <button class="btn-cust b1 dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
+            argumentaires proposés
+          </button>
+          <div class="dropdown-menu" x-placement="right-start">
+            {% for argumentaire in argumentaires %}
+              <a class="dropdown-item" data-toggle="modal" data-target="#{{ argumentaire.id }}">
+                {{ argumentaire.titre }}
+              </a>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="container pb-2">
+    <div class="row">
+      <div class="col-lg-6 p-3">
+        <h5 class="sl">Je lui envoie aussi un tweet</h5>
+        <div class="row pt-2" data-aos="fade-up-right">
+          <div class="col-6">
+            <div class="reseau"></div>
+            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
+          </div>
+          <div class="col-6">
+            <div class="reseau"></div>
+            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 p-3">
+        <h5 class="sl">Je lui envoie aussi un mail</h5>
+        <div class="row pt-2" data-aos="fade-up-left">
+          <div class="col-6">
+            <div class="reseau"></div>
+            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
+          </div>
+          <div class="col-6">
+            <div class="reseau"></div>
+            <button class="btn-cust b2 my-2" type="button"> envoyer ce tweet</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
 
 {% block modals %}
