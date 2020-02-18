@@ -76,6 +76,15 @@ class Depute(models.Model):
             PhoneNumber.from_string(choice(self.telephones)) if self.telephones else ""
         )
 
+    def telephone_link(self):
+        phone_number = PhoneNumber.from_string(choice(self.telephones))
+
+        return format_html(
+            '<a href="tel:{international}">{national}</a>',
+            international=phone_number.as_e164,
+            national=phone_number.as_national,
+        )
+
     def email(self):
         return choice(self.emails) if self.emails else ""
 

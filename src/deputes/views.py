@@ -35,7 +35,7 @@ def rechercher_depute_view(request):
                     "nom": f"{d.prenom} {d.nom}",
                     "titre": d.titre(),
                     "circonscription": f"{d.titre()} {d.groupe} de la {d.circonscription.nom}",
-                    "telephone": d.telephone().as_national if d.telephones else "",
+                    "telephone": str(d.telephone_link()),
                     "twitter": d.twitter,
                     "email": d.email(),
                 }
