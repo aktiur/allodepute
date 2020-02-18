@@ -7240,40 +7240,71 @@ button,
   margin: 0 0 4rem auto;
 }
 
-.cadre1, .cadre2, .cadre3, .cadre4 {
-  border: 0 solid transparent;
-  width: 295px;
-  height: 295px;
 
-  background-size: contain, auto auto;
+.cadre {
+  max-width: 295px;
+  max-height: 295px;
+  min-width: 150px;
+  min-heigt: 150px;
+  overflow: hidden;
+}
+
+.cadre > div {
+  background-origin: padding-box, content-box;
   background-repeat: no-repeat;
   background-clip: padding-box, content-box;
 }
 
-.cadre1 {
-  background-position: 0 0, 72px 90px;
+.cadre1 > div {
+  margin: 0;
+  width: 100%;
+  padding: 32.38% 24.87% 16.71% 24.22%;
+
+  background-position: 0 0, 0 +20%;
+  background-size: contain, 100% 128%;
   --cadre: url("/static/img/c1.png")
 }
 
-.cadre2 {
-  border-width: 57px 28.5px 0;
-  background-position: 0 0, 44px 52px;
-  background-clip: padding-box, content-box;
-  padding: 50px 36px 20px;
+.cadre1 > div > div {
+  padding-bottom: 100%;
+}
+
+.cadre2 > div {
+  margin: 19.14% 9.57% 0;
+
+  padding: 19.06% 15.08% 11.42% 14.87%;
+
+  background-position: 0 0, 0 +40%;
+  background-size: contain, 100% 129.33%;
   --cadre: url("/static/img/c2.png")
 }
 
-.cadre3 {
-  border-width: 57px 28.5px 0;
-  background-position: 0 0, 41px 40px;
-  padding: 35px 40px 25px;
+.cadre2 > div > div {
+  padding-bottom: 98.97%;
+}
+
+.cadre3 > div {
+  margin: 18.97% 9.48% 0;
+  padding: 16.06% 16.06% 13.54% 14.06%;
+
+  background-position: 0 0, 0 +20%;
+  background-size: contain, 100% 126.69%;
   --cadre: url("/static/img/c3.png")
 }
 
-.cadre4 {
-  border-width: 62px 31px 0;
+.cadre3 > div > div {
+  padding-bottom: 101.03%;
+}
 
-  background-position: 0 0, 41px 32px;
-  padding: 40px 40px 25px;
+.cadre4 > div {
+  margin: 20.93% 10.46% 0;
+  padding: 14.14% 14.14% 14.03% 14.03%;
+
+  background-position: 0 0, 0 +20%;
+  background-size: contain, 100% 128%;
   --cadre: url("/static/img/c4.png")
+}
+
+.cadre4 > div > div {
+  padding-bottom: 100%;
 }

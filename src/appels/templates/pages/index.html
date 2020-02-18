@@ -39,8 +39,11 @@
               <p class="depute_circonscription">{{ depute.titre }} {{ depute.groupe }} de
                 la {{ depute.circonscription.nom }}</p>
             </div>
-            <div class="adroite cadre1 depute_image"
-                 style="background-image: var(--cadre),  url({% static depute.image_name %});"></div>
+            <div class="adroite cadre cadre1 depute_image">
+              <div style="background-image: var(--cadre),  url({% static depute.image_name %});">
+                <div></div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-lg-6  bg-light">
@@ -66,16 +69,28 @@
               J'indique mon code postal ci-dessus
             </div>
             <div class="row pb-5 text-center d-none" id="liste-deputes">
-              <div class="col-4 px-1 depute">
-                <a href="#" class="img cadre2 scale"></a>
+              <div class="col-md-4 px-1 depute">
+                <a href="#" class="cadre cadre2 scale">
+                  <div class="img">
+                    <div></div>
+                  </div>
+                </a>
                 <div class="nom mt-2">Prénom Nom</div>
               </div>
-              <div class="col-4 px-1 depute">
-                <a href="#" class="img cadre3 scale"></a>
+              <div class="col-md-4 px-1 depute">
+                <a href="#" class="cadre cadre3 scale">
+                  <div class="img">
+                    <div></div>
+                  </div>
+                </a>
                 <div class="nom mt-2">Prénom Nom</div>
               </div>
-              <div class="col-4 px-1 depute">
-                <a href="#" class="img cadre4 scale"></a>
+              <div class="col-md-4 px-1 depute">
+                <a href="#" class="cadre cadre4 scale">
+                  <div class="img">
+                    <div></div>
+                  </div>
+                </a>
                 <div class="nom mt-2">Prénom Nom</div>
               </div>
             </div>
