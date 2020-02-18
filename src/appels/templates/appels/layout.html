@@ -208,13 +208,13 @@
 </footer>
 
 {% block modals %}
-  <div class="modal fade" id="pourquoi-important">
+  <div class="modal fade" id="pourquoi-important" role="dialog" aria-labelledby="pourquoi-important-title">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
         </div>
         <div class="p-2 bg-secondary">
-          <h5 class="text-center">Pourquoi c'est important ?</h5>
+          <h5 id="pourquoi-important-title" class="text-center">Pourquoi c'est important ?</h5>
         </div>
         <div class="modal-body">
           {% include "argumentaires/pourquoi-important.md" %}

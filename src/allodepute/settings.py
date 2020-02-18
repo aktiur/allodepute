@@ -137,6 +137,6 @@ ARGUMENTAIRES = [
     ("Je ne veux pas que cette réforme nous soit imposée", "projet-impose",),
     (
         "Je ne veux pas que les jeunes d'aujourd'hui soient les sacrifié⋅es du système",
-        "projet-impose",
+        "jeunes-sacrifies",
     ),
 ]

@@ -44,21 +44,25 @@
           </div>
         </div>
         <div class="col-lg-6  bg-light">
-          <div class="px-3 py-4 p-md-4">
+          <div class="px-3 pt-4 pb-5 p-md-4">
             <h5 data-aos="fade-left">je cherche un⋅e député⋅e près de chez moi</h5>
             <div class="py-2">
               <form id="form-cp">
                 {% csrf_token %}
-                <div class="form-group text-center form-row d-flex justify-content-center">
-                  <label for="inputcp"
-                         class="col-5 col-md-3 col-lg-5 col-form-label">MON CODE POSTAL</label>
-                  <div class="col-3">
-                    <input type="text" class="form-control" id="inputcp"></div>
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                <div class="form-row">
+                  <div class="col-auto">
+                    <label for="inputcp" class="sr-only">Mon code postal</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="inputcp" placeholder="Mon code postal">
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
-            <div class="text-center align-self-center lead" id="form-message">
+            <div class="lead" id="form-message">
               J'indique mon code postal ci-dessus
             </div>
             <div class="row pb-5 text-center d-none" id="liste-deputes">
@@ -84,16 +88,16 @@
   <!-- infos-contact -->
   <div class="container bloc3  bg-primary">
     <div class="row" style="z-index: 10;">
-      <div class="col-md-6 p-4" data-aos="fade-right">
+      <div class="col-md-6 p-4">
         <h4 class="sl">j'appelle <span class="depute_nom">{{ depute.prenom }} {{ depute.nom }}</span></h4>
         <div class="d-flex mt-3">
           <i class="d-block fa fa-phone mb-2 fa-3x mr-3"></i>
           <h2 class="depute_numero">{{ depute.telephone_link }}</h2>
         </div>
       </div>
-      <div class="col-md-6 p-4 aos-init" data-aos="fade-left">
+      <div class="col-md-6 p-4">
         <h4 class="sl">et je lui parle de</h4>
-        <div class="my-3 dropdown dropright">
+        <div class="my-3 dropdown">
           <button class="btn-cust b1 dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
             argumentaires proposés
           </button>
@@ -145,13 +149,13 @@
 {% block modals %}
   {{ block.super }}
   {% for argumentaire in argumentaires %}
-    <div class="modal fade" id="{{ argumentaire.id }}">
+    <div class="modal fade" id="{{ argumentaire.id }}" role="dialog" aria-labelledby="{{ argumentaire.id }}-title">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
           </div>
           <div class="p-2 bg-secondary">
-            <h5 class="text-center">{{ argumentaire.titre }}</h5>
+            <h5 id="{{ argumentaire.id }}-title" class="text-center">{{ argumentaire.titre }}</h5>
           </div>
           <div class="modal-body">
             {% include "argumentaires/intro.md" %}
@@ -166,13 +170,13 @@
     </div>
   {% endfor %}
 
-  <div class="modal fade" id="contenu-email">
+  <div class="modal fade" id="contenu-email" role="dialog" aria-labelledby="contenu-email-title">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
         </div>
         <div class="p-2 bg-secondary">
-          <h5 class="text-center">Sujet : Mon opposition à la réforme des retraites</h5>
+          <h5 id="contenu-email-title" class="text-center">Sujet : Mon opposition à la réforme des retraites</h5>
         </div>
         <div class="modal-body">
           {{ email_body|linebreaks }}
