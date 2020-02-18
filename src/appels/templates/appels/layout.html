@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">
@@ -184,6 +184,8 @@
           <p class="lead">Faisons le tous savoir aux député⋅es de la majorité et convainquons-les de refuser ce projet !
             Alors qu’ils discutent du projet dans l’hémicycle, assurons-nous que chaque député⋅e En Marche reçoive
             chaque jour au moins un coup de fil.</p>
+          <button class="btn-cust b2" data-toggle="modal" data-target="#pourquoi-important">Pourquoi c'est important ?
+          </button>
         {% endblock %}
       </div>
     </div>
@@ -205,7 +207,25 @@
   </div>
 </footer>
 
-{% block modals %}{% endblock %}
+{% block modals %}
+  <div class="modal fade" id="pourquoi-important">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
+        </div>
+        <div class="p-2 bg-secondary">
+          <h5 class="text-center">Pourquoi c'est important ?</h5>
+        </div>
+        <div class="modal-body">
+          {% include "argumentaires/pourquoi-important.md" %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-cust b2" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script style="">

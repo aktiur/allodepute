@@ -6,14 +6,16 @@
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://allodepute.fr"/>
   <meta property="og:image" content="https://allodepute.fr{% static "img/banniere_og.png" %}"/>
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:description" content="Faisons connaitre notre opposition au projet de réforme aux député⋅es de la majorité et convainquons-les de refuser le projet ! Alors qu’ils en discutent dans l’hémicycle, assurons-nous que chaque député⋅e En Marche reçoive chaque jour au moins un coup de fil." />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:description"
+        content="Faisons connaitre notre opposition au projet de réforme aux député⋅es de la majorité et convainquons-les de refuser le projet ! Alors qu’ils en discutent dans l’hémicycle, assurons-nous que chaque député⋅e En Marche reçoive chaque jour au moins un coup de fil."/>
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@nosretraites">
   <meta name="twitter:title" content="Allo député⋅e — ma retraite est en danger">
-  <meta name="twitter:description" content="Faisons connaitre notre opposition au projet de réforme aux député⋅es de la majorité pour les convaincre de refuser le projet !">
+  <meta name="twitter:description"
+        content="Faisons connaitre notre opposition au projet de réforme aux député⋅es de la majorité pour les convaincre de refuser le projet !">
   <meta name="twitter:image" content="https://allodepute.fr{% static "img/banniere_twitter.png" %}">
 {% endblock %}
 
@@ -128,11 +130,12 @@
       </div>
       <div class="col-lg-6 p-3">
         <h5 class="sl">Je lui envoie aussi un mail</h5>
-        <div class="row pt-2 text-center" data-aos="fade-up-left">
-          <a id="email-link" class="btn-cust b2 my-2 " href="mailto:{{ depute.email }}?{{ link_data.mailto_qs }}"
-             target="_blank">Je lui
-            envoie un email</a>
-        </div>
+        <a id="email-link" class="btn-cust b2 my-2 " href="mailto:{{ depute.email }}{{ link_data.mailto_qs }}"
+           target="_blank" style="width: max-content;">Je lui
+          envoie un email</a>
+        <p>Si ce lien ne marche pas, je peux copier/coller le texte de l'email :</p>
+        <button class="btn-cust b2 my-2 " data-toggle="modal" data-target="#contenu-email">J'accède au texte de l'email
+        </button>
       </div>
     </div>
   </div>
@@ -140,6 +143,7 @@
 {% endblock %}
 
 {% block modals %}
+  {{ block.super }}
   {% for argumentaire in argumentaires %}
     <div class="modal fade" id="{{ argumentaire.id }}">
       <div class="modal-dialog modal-lg" role="document">
@@ -161,6 +165,24 @@
       </div>
     </div>
   {% endfor %}
+
+  <div class="modal fade" id="contenu-email">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="mt-2 text-center"><img height="70px" src="{% static "img/logo-allodepute.svg" %}">
+        </div>
+        <div class="p-2 bg-secondary">
+          <h5 class="text-center">Sujet : Mon opposition à la réforme des retraites</h5>
+        </div>
+        <div class="modal-body">
+          {{ email_body|linebreaks }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-cust b2" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block scripts %}

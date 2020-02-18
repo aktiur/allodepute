@@ -38,11 +38,13 @@ class HomeView(TemplateView):
 
         formule = "Madame la députée" if depute.genre == "F" else "Monsieur le député"
         subject = quote("Mon opposition à la réforme des retraites")
-        body = quote(loader.render_to_string("email.txt", context={"formule": formule}))
+        body = loader.render_to_string("email.txt", context={"formule": formule})
 
         kwargs["link_data"] = {
             "tweets": [quote(t) for t in kwargs.get("tweets", [])],
-            "mailto_qs": f"?subject={subject}&body={body}",
+            "mailto_qs": f"?subject={subject}&body={quote(body)}",
         }
+
+        kwargs["email_body"] = body
 
         return super().get_context_data(**kwargs, depute=depute,)
