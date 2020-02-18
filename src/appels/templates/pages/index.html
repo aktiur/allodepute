@@ -14,38 +14,46 @@
       <div class="row my-2">
         <div class="col-lg-6">
           <div class="px-3 py-4 p-md-4 text-right align-items-end">
-            <h4 data-aos="fade-right">un⋅e député⋅e au hasard</h4>
+            <h4 id="hasard-ou-choix" data-aos="fade-right">un⋅e député⋅e au hasard</h4>
             <div>
-              <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
-              <p>{{ depute.titre }} {{ depute.groupe }} de la {{ depute.circonscription.nom }}</p>
+              <h5 class="depute_nom">{{ depute.prenom }} {{ depute.nom }}</h5>
+              <p class="depute_circonscription">{{ depute.titre }} {{ depute.groupe }} de
+                la {{ depute.circonscription.nom }}</p>
             </div>
-            <div class="adroite cadre1"
+            <div class="adroite cadre1 depute_image"
                  style="background-image: var(--cadre),  url({% static depute.image_name %});"></div>
           </div>
         </div>
         <div class="col-lg-6  bg-light">
           <div class="px-3 py-4 p-md-4">
-            <h4 data-aos="fade-left">un⋅e député⋅e près de chez moi</h4>
+            <h5 data-aos="fade-left">je cherche un⋅e député⋅e près de chez moi</h5>
             <div class="py-2">
               <form id="form-cp">
+                {% csrf_token %}
                 <div class="form-group text-center form-row d-flex justify-content-center">
                   <label for="inputcp"
                          class="col-5 col-md-3 col-lg-5 col-form-label">MON CODE POSTAL</label>
                   <div class="col-3">
                     <input type="text" class="form-control" id="inputcp"></div>
-                  <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                  <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                 </div>
               </form>
             </div>
-            <div class="row pb-5 text-center">
-              <div class="col-4 px-1"><img src="{% static "img/c1.png" %}" class="scale img-fluid ">
-                <div class="mt-2">Prénom Nom</div>
+            <div class="text-center align-self-center lead" id="form-message">
+              J'indique mon code postal ci-dessus
+            </div>
+            <div class="row pb-5 text-center d-none" id="liste-deputes">
+              <div class="col-4 px-1 depute">
+                <a href="#" class="img cadre2 scale"></a>
+                <div class="nom mt-2">Prénom Nom</div>
               </div>
-              <div class="col-4 px-1"><img src="{% static "img/c2.png" %}" class="scale img-fluid">
-                <div class="mt-2">Prénom Nom</div>
+              <div class="col-4 px-1 depute">
+                <a href="#" class="img cadre3 scale"></a>
+                <div class="nom mt-2">Prénom Nom</div>
               </div>
-              <div class="col-4 px-1"><img src="{% static "img/c3.png" %}" class="scale img-fluid">
-                <div class="mt-2">Prénom Nom</div>
+              <div class="col-4 px-1 depute">
+                <a href="#" class="img cadre4 scale"></a>
+                <div class="nom mt-2">Prénom Nom</div>
               </div>
             </div>
           </div>
@@ -58,10 +66,10 @@
   <div class="container bloc3  bg-primary">
     <div class="row" style="z-index: 10;">
       <div class="col-md-6 p-4" data-aos="fade-right">
-        <h4 class="sl">je l'appelle</h4>
+        <h4 class="sl">j'appelle <span class="depute_nom">{{ depute.prenom }} {{ depute.nom }}</span></h4>
         <div class="d-flex mt-3">
           <i class="d-block fa fa-phone mb-2 fa-3x mr-3"></i>
-          <h2>{{ depute.telephone.as_national }}</h2>
+          <h2 class="depute_numero">{{ depute.telephone.as_national }}</h2>
         </div>
       </div>
       <div class="col-md-6 p-4 aos-init" data-aos="fade-left">
@@ -86,24 +94,27 @@
     <div class="row">
       <div class="col-lg-6 p-3">
         <h5 class="sl">Je lui envoie aussi un tweet</h5>
-        <div class="row pt-2" data-aos="fade-up-right">
+        <div id="tweets" class="row pt-2{% if not depute.twitter %} d-none{% endif %}" data-aos="fade-up-right">
           {% for tweet in tweets %}
             <div class="col-6">
               <div class="reseau">
                 {{ tweet }}
               </div>
-              <a href="https://twitter.com/intent/tweet?text={{ adresse_twitter }}%20{{ tweet|urlencode }}&hashtags={{ "allodéputé"|urlencode }}"
+              <a href="https://twitter.com/intent/tweet?text={{ adresse_twitter }}%20{{ tweet|urlencode }}&amp;hashtags={{ "allodéputé"|urlencode }}"
                  class="btn-cust b2 my-2" target="_blank">Envoyer ce tweet</a>
             </div>
-            {% empty %}
-            <div class="col align-self-center lead">Nous ne connaissons pas le compte twitter de ce député !</div>
           {% endfor %}
+        </div>
+        <div id="no-twitter" class="col align-self-center lead{% if depute.twitter %} d-none{% endif %}">
+          Nous ne connaissons pas le compte twitter de ce député !
         </div>
       </div>
       <div class="col-lg-6 p-3">
         <h5 class="sl">Je lui envoie aussi un mail</h5>
         <div class="row pt-2 text-center" data-aos="fade-up-left">
-          <a class="btn-cust b2 my-2 " href="{{ mailto_link }}" target="_blank">Je lui envoie un email</a>
+          <a id="email-link" class="btn-cust b2 my-2 " href="mailto:{{ depute.email }}?{{ link_data.mailto_qs }}"
+             target="_blank">Je lui
+            envoie un email</a>
         </div>
       </div>
     </div>
@@ -133,4 +144,116 @@
       </div>
     </div>
   {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+  {{ link_data|json_script:"donnees" }}
+  <script>
+    const linkData = JSON.parse(document.getElementById("donnees").textContent);
+    const input = document.getElementById("inputcp");
+    const form = document.getElementById("form-cp");
+    const messageBox = document.getElementById("form-message");
+    const listeDeputes = document.getElementById("liste-deputes");
+    const tweets = document.getElementById("tweets");
+    const noTwitterMessage = document.getElementById("no-twitter");
+    const emailLink = document.getElementById("email-link");
+    const titre = document.getElementById("hasard-ou-choix");
+
+    form.addEventListener("submit", chercherDeputes);
+
+    for (let i = 0; i < 3; i++) {
+      listeDeputes.children[i].addEventListener("click", changerDepute);
+    }
+
+    function montrerMessage(text) {
+      messageBox.classList.remove("d-none");
+      listeDeputes.classList.add("d-none");
+      messageBox.textContent = text;
+    }
+
+    function afficherDeputes(deputes) {
+      messageBox.classList.add("d-none");
+      listeDeputes.classList.remove("d-none");
+
+      for (let i = 0; i < 3; i++) {
+        listeDeputes.children[i].dataset.depute = JSON.stringify(deputes[i]);
+        const img = listeDeputes.children[i].querySelector(".img");
+        const nameBox = listeDeputes.children[i].querySelector(".nom");
+
+        nameBox.textContent = deputes[i].nom;
+        img.style.backgroundImage = `var(--cadre), url(${deputes[i].image}`;
+      }
+    }
+
+    function chercherDeputes(e) {
+      e.preventDefault();
+      montrerMessage("Recherche...");
+      fetch("/chercher/", {
+        method: "POST", headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': getCookie('csrftoken')
+        }, body: "code_postal=" + input.value
+      }).then(function (res) {
+        if (!res.ok) {
+          return res.json().then(function (data) {
+            montrerMessage(data.message)
+          });
+
+        }
+
+        return res.json().then(function (d) {
+          afficherDeputes(d.deputes);
+        });
+      }).catch(function (e) {
+        return montrerMessage("Une erreur inconnue s'est produite.");
+      });
+    }
+
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    function changerDepute(e) {
+      e.preventDefault();
+      titre.textContent = "un⋅e député⋅e de mon choix"
+      const depute = JSON.parse(e.currentTarget.dataset.depute);
+
+      assign(".depute_nom", depute.nom);
+      assign(".depute_circonscription", depute.circonscription);
+      assign(".depute_numero", depute.telephone);
+      document.querySelector(".depute_image").style.backgroundImage = `var(--cadre), url(${depute.image}`;
+
+      if (depute.twitter.length) {
+        tweets.classList.remove("d-none");
+        noTwitterMessage.classList.add("d-none");
+        for (let i = 0; i < tweets.children.length; i++) {
+          const a = tweets.children[i].querySelector("a");
+          a.href = `https://twitter.com/intent/tweet?text=.@${depute.twitter}%20${linkData.tweets[i]}&hashtags=allod%C3%A9put%C3%A9"`
+        }
+      } else {
+        tweets.classList.add("d-none");
+        noTwitterMessage.classList.remove("d-none");
+      }
+      emailLink.href = `mailto:${depute.email}${linkData.mailto_qs}`;
+    }
+
+    function assign(selector, text) {
+      const elems = document.querySelectorAll(selector);
+      for (let i = 0; i < elems.length; i++) {
+        elems[i].innerHTML = text;
+      }
+    }
+  </script>
 {% endblock %}

@@ -25,27 +25,24 @@ class HomeView(TemplateView):
             .first()
         )
 
-        argumentaires = [
+        kwargs["argumentaires"] = [
             {"id": id, "titre": titre, "template_name": f"argumentaires/{id}.md",}
             for titre, id in settings.ARGUMENTAIRES
         ]
 
-        if depute.twitter:
-            kwargs["adresse_twitter"] = f".@{depute.twitter}"
-            kwargs["tweets"] = [
-                loader.render_to_string(f"tweets/{id}.txt")
-                for _, id in sample(settings.ARGUMENTAIRES, 2)
-            ]
+        kwargs["adresse_twitter"] = f".@{depute.twitter}"
+        kwargs["tweets"] = [
+            loader.render_to_string(f"tweets/{id}.txt")
+            for _, id in sample(settings.ARGUMENTAIRES, 2)
+        ]
 
         formule = "Madame la députée" if depute.genre == "F" else "Monsieur le député"
         subject = quote("Mon opposition à la réforme des retraites")
         body = quote(loader.render_to_string("email.txt", context={"formule": formule}))
 
-        mailto_link = f"mailto:{depute.email()}?subject={subject}&body={body}"
+        kwargs["link_data"] = {
+            "tweets": [quote(t) for t in kwargs.get("tweets", [])],
+            "mailto_qs": f"?subject={subject}&body={body}",
+        }
 
-        return super().get_context_data(
-            **kwargs,
-            depute=depute,
-            argumentaires=argumentaires,
-            mailto_link=mailto_link,
-        )
+        return super().get_context_data(**kwargs, depute=depute,)
