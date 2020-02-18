@@ -2,7 +2,7 @@
 # definissez au moins ceux-là
 django_app_name: app
 django_domain: app.fr
-django_secret: "{{ vaulted_django_secret }}"
+# django_secret:
 
 # optionnels
 django_user: django
