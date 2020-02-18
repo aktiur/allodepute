@@ -1,6 +1,14 @@
 {% extends 'appels/layout.html' %}
 {% load static %}
 
+{% block opengraph %}
+  <meta property="og:title" content="Allo député⋅e — ma retraite est en danger"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://allodepute.fr"/>
+  <meta property="og:image" content="http://allodepute.fr{% static "img/logo-allodepute_complet.png" %}"/>
+{% endblock %}
+
+
 {% block main %}
   <!-- deputes -->
 
