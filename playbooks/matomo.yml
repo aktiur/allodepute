@@ -1,0 +1,11 @@
+- name: Install Matomo
+  hosts: matomo
+  become: true
+  tasks:
+    - import_role: { name: common }
+    - import_role: { name: php }
+      vars:
+        php_memory_limit: 512M
+    - import_role: { name: mariadb }
+    - import_role: { name: matomo }
+      tags: ["deploy"]

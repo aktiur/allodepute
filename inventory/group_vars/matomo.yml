@@ -1,0 +1,3 @@
+matomo_domain: matomo.allodepute.fr
+letsencrypt_domains:
+  - "{{ matomo_domain }}"
