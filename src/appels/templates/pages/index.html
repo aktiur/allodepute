@@ -118,7 +118,7 @@
           </button>
           <div class="dropdown-menu" x-placement="right-start">
             {% for argumentaire in argumentaires %}
-              <a class="dropdown-item" data-toggle="modal" data-target="#{{ argumentaire.id }}">
+              <a class="dropdown-item" data-toggle="modal" data-target="#{{ argumentaire.id }}" href="#">
                 {{ argumentaire.titre }}
               </a>
             {% endfor %}
@@ -207,7 +207,7 @@
 {% block scripts %}
   {{ link_data|json_script:"donnees" }}
   <script>
-    const linkData = JSON.parse(document.getElementById("donnees").textContent);
+    const linkData = JSON.parse(document.getEl-allementById("donnees").textContent);
     const input = document.getElementById("inputcp");
     const form = document.getElementById("form-cp");
     const messageBox = document.getElementById("form-message");
