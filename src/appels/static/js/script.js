@@ -8,6 +8,18 @@ const noTwitterMessage = document.getElementById("no-twitter");
 const emailLink = document.getElementById("email-link");
 const titre = document.getElementById("hasard-ou-choix");
 
+const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+document.querySelector(".depute_numero").addEventListener("click", function(e) {
+    if (e.target.tagName === "A") {
+      if (!isMobile) {
+        e.preventDefault();
+      } else {
+        _paq.push(["trackEvent", "CliquerNumero", e.target.href])
+      }
+    }
+});
+
 form.addEventListener("submit", chercherDeputes);
 for (let i = 0; i < 3; i++) {
   listeDeputes.children[i].addEventListener("click", changerDepute);
