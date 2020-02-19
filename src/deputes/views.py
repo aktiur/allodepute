@@ -31,6 +31,7 @@ def rechercher_depute_view(request):
         {
             "deputes": [
                 {
+                    "code": d.code,
                     "image": static(d.image_name()),
                     "nom": f"{d.prenom} {d.nom}",
                     "titre": d.titre(),
