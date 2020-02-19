@@ -19,6 +19,7 @@ URLS = {
 DATA_DIR = Path(__file__).parent / "data"
 AN_DIR = DATA_DIR / "assemblee_nationale"
 IMAGE_DIR = Path(__file__).parent / "static" / "deputes"
+SRC_DIR = Path(__file__).parent / "src"
 
 
 def django_manage(*cmd):
@@ -156,3 +157,37 @@ def task_telecharger_photos():
             "targets": [IMAGE_DIR / f"{name}.jpg"],
             "actions": [f"curl -s -S {url} -o {target}"],
         }
+
+
+def task_create_favicon():
+    static_dir = SRC_DIR / "appels" / "static"
+    source = static_dir / "favicon.svg"
+    for format in [16, 24, 32, 48, 64, 152, 256]:
+        target = static_dir / f"favicon-{format}.png"
+        yield {
+            "name": f"favicon-{format}.png",
+            "file_dep": [source],
+            "targets": [target],
+            "actions": [
+                [
+                    "inkscape",
+                    source,
+                    "--export-area-page",
+                    "--export-background-opacity=0",
+                    f"--export-png={target}",
+                    f"--export-width={format}",
+                    f"--export-height={format}",
+                ],
+                f"optipng -o 3 -quiet {target}",
+            ],
+        }
+
+    deps = [static_dir / f"favicon-{format}.png" for format in [16, 24, 32, 48]]
+    target = static_dir / "favicon.ico"
+
+    yield {
+        "name": "favicon.ico",
+        "file_dep": deps,
+        "targets": [target],
+        "actions": [["convert", *deps, target]],
+    }

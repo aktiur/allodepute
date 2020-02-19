@@ -36,15 +36,15 @@
      objecttolerance="10"
      gridtolerance="10"
      guidetolerance="10"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1850"
      inkscape:window-height="1016"
      id="namedview106"
      showgrid="false"
-     inkscape:zoom="1.8012057"
-     inkscape:cx="29.011422"
-     inkscape:cy="116.26009"
+     inkscape:zoom="3.6024114"
+     inkscape:cx="102.41808"
+     inkscape:cy="66.496435"
      inkscape:window-x="70"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -73,6 +73,14 @@
   </defs>
   <title
      id="title6">logo-allodepute_1</title>
+  <rect
+     style="opacity:1;fill:#ffb3b7;fill-opacity:1;stroke:none;stroke-width:0.99529654;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="rect848"
+     width="160"
+     height="160"
+     x="0"
+     y="0"
+     ry="31.923061" />
   <g
      id="g1964"
      transform="matrix(0.92898637,0,0,0.92898637,11.003361,9.0743946)">
