@@ -76,7 +76,7 @@ function changerDepute(e) {
     noTwitterMessage.classList.add("d-none");
     for (let i = 0; i < tweets.children.length; i++) {
       const a = tweets.children[i].querySelector("a");
-      a.href = `https://twitter.com/intent/tweet?text=.@${depute.twitter}%20${linkData.tweets[i]}&hashtags=allod%C3%A9put%C3%A9"`
+      a.href = `https://twitter.com/intent/tweet?text=.@${depute.twitter}%20${linkData.tweets[i]}&hashtags=allod%C3%A9put%C3%A9`
     }
   } else {
     tweets.classList.add("d-none");
