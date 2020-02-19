@@ -133,13 +133,13 @@
       <div class="col-lg-6 p-3">
         <h5 class="sl">Je lui envoie aussi un tweet</h5>
         <div id="tweets" class="row pt-2{% if not depute.twitter %} d-none{% endif %}" data-aos="fade-up-right">
-          {% for tweet in tweets %}
+          {% for id, tweet in tweets %}
             <div class="col-6">
               <div class="reseau">
                 {{ tweet }}
               </div>
               <a href="https://twitter.com/intent/tweet?text={{ adresse_twitter }}%20{{ tweet|urlencode }}&amp;hashtags={{ "allodéputé"|urlencode }}"
-                 class="btn-cust b2 my-2" target="_blank">Envoyer ce tweet</a>
+                 class="btn-cust b2 my-2" target="_blank" data-tweet="{{ id }}">Envoyer ce tweet</a>
             </div>
           {% endfor %}
         </div>

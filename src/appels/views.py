@@ -1,4 +1,4 @@
-from random import sample
+from random import sample, shuffle
 from urllib.parse import quote
 
 from django.conf import settings
@@ -31,17 +31,24 @@ class HomeView(TemplateView):
         ]
 
         kwargs["adresse_twitter"] = f".@{depute.twitter}"
-        kwargs["tweets"] = [
-            loader.render_to_string(f"tweets/{id}.txt")
-            for _, id in sample(settings.ARGUMENTAIRES, 2)
+
+        tweets = [
+            (id, loader.render_to_string(f"tweets/{id}.txt"))
+            for _, id in settings.ARGUMENTAIRES
         ]
+        shuffle(tweets)
+
+        kwargs["tweets"] = tweets[:2]
 
         formule = "Madame la députée" if depute.genre == "F" else "Monsieur le député"
         subject = quote("Mon opposition à la réforme des retraites")
         body = loader.render_to_string("email.txt", context={"formule": formule})
 
         kwargs["link_data"] = {
-            "tweets": [quote(t) for t in kwargs.get("tweets", [])],
+            "tweets": [
+                {"id": id, "tweet": tweet, "quoted": quote(tweet)}
+                for id, tweet in tweets
+            ],
             "mailto_qs": f"?subject={subject}&body={quote(body)}",
         }
 

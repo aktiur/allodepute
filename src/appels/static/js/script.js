@@ -28,6 +28,12 @@ document.getElementById("menu-argumentaires").addEventListener("click", function
   }
 });
 
+tweets.addEventListener("click", function(e) {
+  if(e.target.dataset.tweet) {
+    _paq.push(["trackEvent", "EnvoyerTweet", e.target.dataset.tweet]);
+  }
+});
+
 form.addEventListener("submit", chercherDeputes);
 for (let i = 0; i < 3; i++) {
   listeDeputes.children[i].addEventListener("click", changerDepute);
@@ -109,7 +115,7 @@ function changerDepute(e) {
     noTwitterMessage.classList.add("d-none");
     for (let i = 0; i < tweets.children.length; i++) {
       const a = tweets.children[i].querySelector("a");
-      a.href = `https://twitter.com/intent/tweet?text=.@${depute.twitter}%20${linkData.tweets[i]}&hashtags=allod%C3%A9put%C3%A9`
+      a.href = `https://twitter.com/intent/tweet?text=.@${depute.twitter}%20${linkData.tweets[i].quoted}&hashtags=allod%C3%A9put%C3%A9`;
     }
   } else {
     tweets.classList.add("d-none");
