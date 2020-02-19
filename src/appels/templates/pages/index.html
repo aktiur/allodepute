@@ -207,7 +207,7 @@
 {% block scripts %}
   {{ link_data|json_script:"donnees" }}
   <script>
-    const linkData = JSON.parse(document.getEl-allementById("donnees").textContent);
+    const linkData = JSON.parse(document.getElementById("donnees").textContent);
     const input = document.getElementById("inputcp");
     const form = document.getElementById("form-cp");
     const messageBox = document.getElementById("form-message");
