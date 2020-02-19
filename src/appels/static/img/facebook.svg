@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="266.893px"
+   height="266.895px"
+   viewBox="0 0 266.893 266.895"
+   enable-background="new 0 0 266.893 266.895"
+   xml:space="preserve"
+   sodipodi:docname="facebook.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"><metadata
+   id="metadata9"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs7" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1850"
+   inkscape:window-height="1016"
+   id="namedview5"
+   showgrid="false"
+   inkscape:zoom="1.7684858"
+   inkscape:cx="57.195972"
+   inkscape:cy="57.775471"
+   inkscape:window-x="70"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+
+<g
+   id="g821"
+   transform="matrix(0.70035096,0,0,0.70035096,37.611014,27.011726)"><path
+     inkscape:connector-curvature="0"
+     style="fill:#505075;fill-opacity:1;stroke-width:0.82008421"
+     d="m 230.85,238.55751 c 6.44094,0 11.66406,-5.22312 11.66406,-11.6657 V 38.871097 c 0,-6.443401 -5.2223,-11.664878 -11.66406,-11.664878 H 42.829286 c -6.443402,0 -11.664878,5.221477 -11.664878,11.664878 V 226.89181 c 0,6.44176 5.220656,11.6657 11.664878,11.6657 z"
+     id="Blue_1_" /><path
+     style="fill:#ffffff;stroke-width:0.82008421"
+     inkscape:connector-curvature="0"
+     d="m 176.99261,238.55751 v -81.84687 h 27.472 l 4.11354,-31.89717 h -31.58554 v -20.36434 c 0,-9.234965 2.5644,-15.528292 15.80712,-15.528292 l 16.89046,-0.0074 V 60.384367 c -2.92114,-0.38872 -12.94749,-1.257189 -24.61237,-1.257189 -24.3524,0 -41.02471,14.864847 -41.02471,42.162992 v 23.5233 h -27.54254 v 31.89717 h 27.54254 v 81.84687 z"
+     id="f" /></g>
+</svg>

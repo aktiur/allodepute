@@ -197,7 +197,8 @@
       <div class="col-md-10  bg-secondary p-4 p-lg-4">
         {% block header %}
           <h3>Vous n'aimez pas cette réforme&nbsp;?</h3>
-          <p class="lead">Faisons le toutes et tous savoir aux député⋅es de la majorité et convainquons-les de refuser ce projet !
+          <p class="lead">Faisons le toutes et tous savoir aux député⋅es de la majorité et convainquons-les de refuser
+            ce projet !
             Alors qu’ils discutent du projet dans l’hémicycle, assurons-nous que chacun d'entre elles et eux reçoive
             chaque jour au moins un coup de fil.</p>
           <button class="btn-cust b2" data-toggle="modal" data-target="#pourquoi-important">Pourquoi c'est important ?
@@ -219,9 +220,13 @@
       <h5><a href="https://reformedesretraites.fr/qui-sommes-nous/">Qui sommes nous ?</a></h5>
     </div>
     <div class="col-md-4 bg-light footer my-auto pt-4">
-      <a href="https://twitter.com/nosretraites/">
-        <img src="{% static "img/twitter.svg" %}" height="40px">
-      </a>
+      <h5>Je relaie Allo député⋅e
+        <a href="https://twitter.com/intent/tweet?text={{ "Vous voulez agir contre la réforme des retraites ? Faites connaître votre opposition aux députés de la majorité et tentez de les convaincre de voter contre !"|urlencode }}&amp;hashtags={{ "allodéputé"|urlencode }}&amp;url={{ "https://allodepute.fr"|urlencode }}"
+           target="_blank"><img
+            src="{% static "img/twitter.svg" %}" height="40px"></a><a
+            href="https://www.facebook.com/sharer.php?u=https://allodepute.fr/"
+            target="_blank"><img src="{% static "img/facebook.svg" %}" height="40px"></a>
+      </h5>
     </div>
   </div>
 </footer>
