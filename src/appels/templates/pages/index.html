@@ -116,7 +116,7 @@
           <button class="btn-cust b1 dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
             argumentaires proposés
           </button>
-          <div class="dropdown-menu" x-placement="right-start">
+          <div class="dropdown-menu" id="menu-argumentaires">
             {% for argumentaire in argumentaires %}
               <a class="dropdown-item" data-toggle="modal" data-target="#{{ argumentaire.id }}" href="#">
                 {{ argumentaire.titre }}

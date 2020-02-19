@@ -10,6 +10,8 @@ const titre = document.getElementById("hasard-ou-choix");
 
 const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
+
+/* GESTIONNAIRES D'EVENEMENTS */
 document.querySelector(".depute_numero").addEventListener("click", function(e) {
     if (e.target.tagName === "A") {
       if (!isMobile) {
@@ -18,6 +20,12 @@ document.querySelector(".depute_numero").addEventListener("click", function(e) {
         _paq.push(["trackEvent", "CliquerNumero", e.target.href])
       }
     }
+});
+
+document.getElementById("menu-argumentaires").addEventListener("click", function(e) {
+  if (e.target.dataset.target) {
+    _paq.push(["trackEvent", "OuvrirArgumentaire", e.target.dataset.target]);
+  }
 });
 
 form.addEventListener("submit", chercherDeputes);
