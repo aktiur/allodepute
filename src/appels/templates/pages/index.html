@@ -291,7 +291,7 @@
       assign(".depute_nom", depute.nom);
       assign(".depute_circonscription", depute.circonscription);
       assign(".depute_numero", depute.telephone);
-      document.querySelector(".depute_image").style.backgroundImage = `var(--cadre), url(${depute.image}`;
+      document.querySelector(".depute_image > div").style.backgroundImage = `var(--cadre), url(${depute.image}`;
 
       if (depute.twitter.length) {
         tweets.classList.remove("d-none");
