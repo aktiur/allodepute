@@ -9,5 +9,6 @@ messages.
 explique pourquoi ce type de campagnes d’appels peut changer la perception qu’ont les élu·e·s d’une réforme qu’ils et
 elles s’apprêtent à voter.
 
-Pour passer ces appels, __il faut être calmes et déterminé·e·s__ : nous avons des arguments, nous pouvons les
-convaincre d’exiger le retrait de cette réforme. 
+__Rappel : les appels malveillants, le harcèlement téléphonique et l'enregistrement de personnes sans leur
+consentement sont punis par la loi. Restons calmes et déterminé·e·s__ : nous avons des arguments, nous pouvons les
+ convaincre d’exiger le retrait de cette réforme.
