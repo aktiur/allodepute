@@ -13,6 +13,8 @@ for (let i = 0; i < 3; i++) {
   listeDeputes.children[i].addEventListener("click", changerDepute);
 }
 
+input.addEventListener("input", function() { input.setCustomValidity("");});
+
 function montrerMessage(text) {
   messageBox.classList.remove("d-none");
   listeDeputes.classList.add("d-none");
@@ -35,6 +37,16 @@ function afficherDeputes(deputes) {
 
 function chercherDeputes(e) {
   e.preventDefault();
+  const codePostal = input.value;
+
+  if (!codePostal.match(/^[0-9]{5}$/)) {
+    input.setCustomValidity("Indiquez un code postal français valide (5 chiffres)");
+    return;
+  } else {
+    input.setCustomValidity("");
+  }
+
+  _paq.push(["trackEvent", "ChercheCodePostal", codePostal]);
 
   montrerMessage("Recherche...");
   fetch("/chercher/", {
@@ -47,7 +59,6 @@ function chercherDeputes(e) {
       return res.json().then(function (data) {
         montrerMessage(data.message)
       });
-
     }
 
     return res.json().then(function (d) {
@@ -63,6 +74,7 @@ function changerDepute(e) {
   e.preventDefault();
   const depute = JSON.parse(e.currentTarget.dataset.depute);
 
+  _paq.push(["trackEvent", "ChoisitDepute", depute.code]);
 
   titre.textContent = `${depute.article_indefini} ${depute.titre} de mon choix`;
 
