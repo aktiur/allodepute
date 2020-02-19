@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         type="text/css">
   <link rel="stylesheet" href="{% static "css/theme.css" %}" type="text/css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   {% block extrahead %}{% endblock %}
 </head>
 
@@ -197,8 +196,8 @@
 {% endblock %}
 
 <!-- Footer -->
-<footer>
-  <div class="row pt-5 d-flex text-center justify-content-start">
+<footer class="container-fluid">
+  <div class="row pt-5 text-center justify-content-start">
     <div class="col-md-4 bg-light footer my-auto pt-4">
       <h5><a href="https://reformedesretraites.fr/">Qui sommes nous ?</a></h5>
     </div>
@@ -227,10 +226,6 @@
   </div>
 {% endblock %}
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script style="">
-  AOS.init();
-</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
