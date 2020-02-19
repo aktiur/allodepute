@@ -34,6 +34,8 @@ def rechercher_depute_view(request):
                     "image": static(d.image_name()),
                     "nom": f"{d.prenom} {d.nom}",
                     "titre": d.titre(),
+                    "article_indefini": d.article_indefini(),
+                    "article_demonstratif": d.article_demonstratif(),
                     "circonscription": f"{d.titre()} {d.groupe} de la {d.circonscription.nom}",
                     "telephone": str(d.telephone_link()),
                     "twitter": d.twitter,

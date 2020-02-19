@@ -89,7 +89,13 @@ class Depute(models.Model):
         return choice(self.emails) if self.emails else ""
 
     def titre(self):
-        return "Députée" if self.genre == "F" else "Député"
+        return "députée" if self.genre == "F" else "député"
+
+    def article_indefini(self):
+        return "une" if self.genre == "F" else "un"
+
+    def article_demonstratif(self):
+        return "cette" if self.genre == "F" else "ce"
 
     class Meta:
         verbose_name = "Député"
