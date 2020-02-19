@@ -1,4 +1,4 @@
-const linkData = JSON.parse(document.getElmentById("donnees").textContent);
+const linkData = JSON.parse(document.getElementById("donnees").textContent);
 const input = document.getElementById("inputcp");
 const form = document.getElementById("form-cp");
 const messageBox = document.getElementById("form-message");
@@ -35,6 +35,7 @@ function afficherDeputes(deputes) {
 
 function chercherDeputes(e) {
   e.preventDefault();
+
   montrerMessage("Recherche...");
   fetch("/chercher/", {
     method: "POST", headers: {

@@ -206,5 +206,5 @@
 
 {% block scripts %}
   {{ link_data|json_script:"donnees" }}
-  <script src="index.html"></script>
+  <script src="{% static "js/script.js" %}"></script>
 {% endblock %}
