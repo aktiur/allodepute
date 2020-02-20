@@ -8,7 +8,6 @@
     version: master
   notify:
     - restart django
-  tags: ["deploy"]
 
 - name: update virtualenv
   command: pipenv sync
@@ -18,7 +17,6 @@
   become_user: "{{ django_user }}"
   notify:
     - restart django
-  tags: ["deploy"]
 
 - name: ensure uwsgi is present
   command: pipenv run pip install uwsgi
@@ -26,7 +24,6 @@
     chdir: "{{ django_pipfile }}"
   become: true
   become_user: "{{ django_user }}"
-  tags: ["deploy"]
 
 - name: ensure .env is present
   template:
@@ -37,7 +34,6 @@
     group: "{{ django_group }}"
   notify:
     - restart django
-  tags: ["deploy"]
 
 - name: apply database migrations
   command: "pipenv run {{ django_manage }} migrate --noinput"
@@ -47,7 +43,6 @@
   become_user: "{{ django_user }}"
   register: migrations
   changed_when: "'No migrations to apply.' not in migrations.stdout"
-  tags: ["deploy"]
 
 - name: collect staticfiles
   command: "pipenv run {{ django_manage }} collectstatic --noinput"
@@ -57,7 +52,6 @@
   become_user: "{{ django_user }}"
   register: collectstatic
   changed_when: not (collectstatic.stdout is search("\\b0 static files copied"))
-  tags: ["deploy"]
 
 - name: ensure uwsgi config directory exists
   file:

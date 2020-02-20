@@ -19,6 +19,7 @@ django-phonenumber-field = "*"
 phonenumberslite = "*"
 pillow = "*"
 markdown = "*"
+systemd = "*"
 
 [requires]
 python_version = "3.8"

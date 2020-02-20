@@ -103,7 +103,27 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-GROUPES_MAJORITE = ["LaREM", "MODEM", "UDI-AGIR"]
+# Journalisation
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "main": {
+            "level": "DEBUG",
+            "class": "systemd.journal.JournaldLogHandler"
+            if not DEBUG
+            else "logging.StreamHandler",
+        },
+        # "admins_mail": {
+        #     "level": "ERROR",
+        #     "class": "django.utils.log.AdminEmailHandler",
+        # },
+    },
+    "loggers": {
+        "django.template": {"handlers": ["main"], "level": "INFO", "propagate": False,},
+        "django": {"handlers": ["main"], "level": "DEBUG", "propagate": True},
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -126,6 +146,9 @@ STATIC_ROOT = os.environ.get("STATIC_ROOT", BASE_DIR / "static")
 
 STATICFILES_DIRS = [d for d in os.environ.get("STATIC_DIRS", "").split(":") if d]
 
+# Groupes et argumentaires
+
+GROUPES_MAJORITE = ["LaREM", "MODEM", "UDI-AGIR"]
 ARGUMENTAIRES = [
     ("Je ne veux pas que le niveau des pensions baisse", "niveau-pensions",),
     ("Je ne veux pas avoir à travailler plus longtemps", "travailler-plus-longtemps",),
