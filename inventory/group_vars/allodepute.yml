@@ -4,12 +4,15 @@ app_user: allodepute
 db_name: allodepute
 app_domain: allodepute.fr
 app_repo: git@github.com:aktiur/allodepute.git
+app_redirect_domains:
+  - www.allodepute.fr
+  - staging.allodepute.fr
+  - xn--allodput-f1ad.fr  # allodéputé.fr
+  - www.xn--allodput-f1ad.fr  # www.allodéputé.fr
+
 
 # Pour nginx/letsencrypt
-letsencrypt_domains:
-  - "{{ app_domain }}"
-  - "www.{{ app_domain }}"
-  - staging.allodepute.fr
+letsencrypt_domains: "{{ [app_domain] + app_redirect_domains }}"
 
 
 # Paramètres pour Django
@@ -17,7 +20,7 @@ django_app_name: "{{ app_name }}"
 django_user: "{{ app_user }}"
 django_group: "{{ app_user }}"
 django_domain: "{{ app_domain }}"
-django_redirect_domains: ["www.{{ app_domain }}"]
+django_redirect_domains: "{{ app_redirect_domains }}"
 django_project_repo: "{{ app_repo }}"
 django_env:
   DATABASE_URL: "postgis://%2Fvar%2Frun%2Fpostgresql/{{ db_name }}"
