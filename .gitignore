@@ -1,10 +1,24 @@
+# Fichier de configuration local
 /.env
-/.idea/
+
+# Dossier où sont stockés les données téléchargées depuis l'AN
 /data
-.doit.*
-/vendors
+
+# Dossier où sont stockés les photos de députés téléchargés et les bundles JS/CSS
+/static
+
+# Les roles ansible installés et la clé ansible-vault
+/playbooks/vendors
 /pass.vault
+
+# Les fichiers utilisés par doit
+.doit.*
+
+# Python
 __pycache__
 
-# photos députés
-/static/
+# Pycharm
+/.idea/
+
+# node
+node_modules
