@@ -32,11 +32,11 @@
       </div>
       <div class="row my-2">
         <div class="col-lg-6">
-          <div class="px-3 py-4 p-md-4 text-right align-items-end">
+          <div class="px-3 py-4 p-md-4 text-right align-items-end" id="depute-actif">
             <h4 id="hasard-ou-choix" data-aos="fade-right">{{ depute.article_indefini }} {{ depute.titre }} au hasard</h4>
             <div>
-              <h5 class="depute_nom">{{ depute.prenom }} {{ depute.nom }}</h5>
-              <p class="depute_circonscription">{{ depute.titre|capfirst }} {{ depute.groupe }} de
+              <h5>{{ depute.prenom }} {{ depute.nom }}</h5>
+              <p>{{ depute.titre|capfirst }} {{ depute.groupe }} de
                 la {{ depute.circonscription.nom }}</p>
             </div>
             <div class="adroite cadre cadre1 depute_image">
@@ -47,53 +47,7 @@
           </div>
         </div>
         <div class="col-lg-6  bg-light">
-          <div class="px-3 pt-4 pb-5 p-md-4">
-            <h5 data-aos="fade-left">je cherche un⋅e député⋅e près de chez moi</h5>
-            <div class="py-2">
-              <form id="form-cp">
-                {% csrf_token %}
-                <div class="form-row">
-                  <div class="col-auto">
-                    <label for="inputcp" class="sr-only">Mon code postal</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="inputcp" placeholder="Mon code postal">
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="lead" id="form-message">
-              J'indique mon code postal ci-dessus
-            </div>
-            <div class="row pb-5 text-center d-none" id="liste-deputes">
-              <div class="col-md-4 px-1 depute">
-                <a href="#" class="cadre cadre2 scale">
-                  <div class="img">
-                    <div></div>
-                  </div>
-                </a>
-                <div class="nom mt-2">Prénom Nom</div>
-              </div>
-              <div class="col-md-4 px-1 depute">
-                <a href="#" class="cadre cadre3 scale">
-                  <div class="img">
-                    <div></div>
-                  </div>
-                </a>
-                <div class="nom mt-2">Prénom Nom</div>
-              </div>
-              <div class="col-md-4 px-1 depute">
-                <a href="#" class="cadre cadre4 scale">
-                  <div class="img">
-                    <div></div>
-                  </div>
-                </a>
-                <div class="nom mt-2">Prénom Nom</div>
-              </div>
-            </div>
+          <div class="px-3 pt-4 pb-5 p-md-4" id="recherche-depute">
           </div>
         </div>
       </div>
@@ -103,7 +57,7 @@
   <!-- infos-contact -->
   <div class="container bloc3  bg-primary">
     <div class="row" style="z-index: 10;">
-      <div class="col-md-6 p-4">
+      <div class="col-md-6 p-4" id="appel">
         <h4 class="sl">j'appelle <span class="depute_nom">{{ depute.prenom }} {{ depute.nom }}</span></h4>
         <div class="d-flex mt-3">
           <i class="d-block fa fa-phone mb-2 fa-3x mr-3"></i>
@@ -130,9 +84,9 @@
 
   <div class="container pb-2">
     <div class="row">
-      <div class="col-lg-6 p-3">
+      <div class="col-lg-6 p-3" id="tweets">
         <h5 class="sl">Je lui envoie aussi un tweet</h5>
-        <div id="tweets" class="row pt-2{% if not depute.twitter %} d-none{% endif %}" data-aos="fade-up-right">
+        <div class="row pt-2{% if not depute.twitter %} d-none{% endif %}" data-aos="fade-up-right">
           {% for id, tweet in tweets %}
             <div class="col-6">
               <div class="reseau">
@@ -147,7 +101,7 @@
           Nous ne connaissons pas le compte twitter de <span class="depute_article_demonstratif">{{ depute.article_demonstratif }} {{ depute.titre }}</span> !
         </div>
       </div>
-      <div class="col-lg-6 p-3">
+      <div class="col-lg-6 p-3" id="email">
         <h5 class="sl">Je lui envoie aussi un mail</h5>
         <a id="email-link" class="btn-cust b2 my-2 " href="mailto:{{ depute.email }}{{ link_data.mailto_qs }}"
            target="_blank" style="width: max-content;">Je lui
@@ -206,5 +160,5 @@
 
 {% block scripts %}
   {{ link_data|json_script:"donnees" }}
-  <script src="{% static "js/script.js" %}"></script>
+  <script src="{% static "js/bundle.js" %}"></script>
 {% endblock %}

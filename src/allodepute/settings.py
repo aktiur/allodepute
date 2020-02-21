@@ -11,11 +11,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from pathlib import Path
 
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 BASE_DIR = Path(__file__).absolute().parent.parent
 
@@ -29,6 +30,15 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
+
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn="https://453a04d3822e40af9cbd2c7ab68013f4@sentry.io/2717092",
+        integrations=[DjangoIntegration()],
+        send_default_pii=True,
+    )
+
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
 
@@ -109,7 +119,7 @@ LOGGING = {
     "disable_existing_loggers": False,
     "handlers": {
         "main": {
-            "level": "DEBUG",
+            "level": "DEBUG" if not DEBUG else "INFO",
             "class": "systemd.journal.JournaldLogHandler"
             if not DEBUG
             else "logging.StreamHandler",

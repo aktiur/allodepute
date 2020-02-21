@@ -3,6 +3,7 @@ from random import choice
 from django.contrib.gis.db.models import PointField, GeometryField
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.templatetags.static import static
 from django.utils.html import format_html
 from phonenumber_field.modelfields import PhoneNumberField
 from phonenumber_field.phonenumber import PhoneNumber
@@ -96,6 +97,23 @@ class Depute(models.Model):
 
     def article_demonstratif(self):
         return "cette" if self.genre == "F" else "ce"
+
+    def to_dict(self):
+        tel = self.telephone()
+        return {
+            "code": self.code,
+            "image": static(self.image_name()),
+            "nom": f"{self.prenom} {self.nom}",
+            "titre": self.titre(),
+            "article_indefini": self.article_indefini(),
+            "article_demonstratif": self.article_demonstratif(),
+            "groupe": self.groupe,
+            "circonscription": self.circonscription.nom,
+            "telephone_as_e164": tel.as_e164,
+            "telephone_as_national": tel.as_national,
+            "twitter": self.twitter,
+            "email": self.email(),
+        }
 
     class Meta:
         verbose_name = "Député"

@@ -1,9 +1,19 @@
 from django.conf import settings
 from django.contrib.gis.db.models.functions import Distance
 from django.http import HttpResponse, JsonResponse
-from django.templatetags.static import static
 
 from deputes.models import CodePostal, Depute
+
+
+def depute_au_hasard(request):
+    depute = (
+        Depute.objects.filter(groupe__in=settings.GROUPES_MAJORITE)
+        .exclude(telephones=[])
+        .order_by("?")
+        .first()
+    )
+
+    return JsonResponse({"depute": depute.to_dict()})
 
 
 def rechercher_depute_view(request):
@@ -27,22 +37,4 @@ def rechercher_depute_view(request):
         .order_by("distance")[:3]
     )
 
-    return JsonResponse(
-        {
-            "deputes": [
-                {
-                    "code": d.code,
-                    "image": static(d.image_name()),
-                    "nom": f"{d.prenom} {d.nom}",
-                    "titre": d.titre(),
-                    "article_indefini": d.article_indefini(),
-                    "article_demonstratif": d.article_demonstratif(),
-                    "circonscription": f"{d.titre()} {d.groupe} de la {d.circonscription.nom}",
-                    "telephone": str(d.telephone_link()),
-                    "twitter": d.twitter,
-                    "email": d.email(),
-                }
-                for d in deputes
-            ]
-        }
-    )
+    return JsonResponse({"deputes": [d.to_dict() for d in deputes]})
