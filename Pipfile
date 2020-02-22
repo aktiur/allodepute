@@ -20,6 +20,7 @@ phonenumberslite = "*"
 pillow = "*"
 markdown = "*"
 systemd = "*"
+dj-email-url = "*"
 
 [requires]
 python_version = "3.8"

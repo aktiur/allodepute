@@ -11,11 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from pathlib import Path
 
 import dj_database_url
+import dj_email_url
 
 BASE_DIR = Path(__file__).absolute().parent.parent
 
@@ -31,6 +30,8 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
+
+ADMINS = os.environ.get("ADMINS").split(",") if "ADMINS" in os.environ else []
 
 # Application definition
 
@@ -91,6 +92,17 @@ DATABASES = {
     )
 }
 
+# SMTP
+email_config = dj_email_url.config("smtp://localhost/")
+EMAIL_FILE_PATH = email_config["EMAIL_FILE_PATH"]
+EMAIL_HOST_USER = email_config["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = email_config["EMAIL_HOST_PASSWORD"]
+EMAIL_HOST = email_config["EMAIL_HOST"]
+EMAIL_PORT = email_config["EMAIL_PORT"]
+EMAIL_BACKEND = email_config["EMAIL_BACKEND"]
+EMAIL_USE_TLS = email_config["EMAIL_USE_TLS"]
+EMAIL_USE_SSL = email_config["EMAIL_USE_SSL"]
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -114,14 +126,11 @@ LOGGING = {
             if not DEBUG
             else "logging.StreamHandler",
         },
-        # "admins_mail": {
-        #     "level": "ERROR",
-        #     "class": "django.utils.log.AdminEmailHandler",
-        # },
+        "email": {"level": "ERROR", "class": "django.utils.log.AdminEmailHandler",},
     },
     "loggers": {
         "django.template": {"handlers": ["main"], "level": "INFO", "propagate": False,},
-        "django": {"handlers": ["main"], "level": "DEBUG", "propagate": True},
+        "django": {"handlers": ["main", "email"], "level": "DEBUG", "propagate": True},
     },
 }
 
