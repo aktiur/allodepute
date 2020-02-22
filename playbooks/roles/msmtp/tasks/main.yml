@@ -1,0 +1,10 @@
+- name: make sure apt packages for mstmp are present
+  apt:
+    name:
+      - msmtp
+      - msmtp-mta
+
+- name: set up configuration file
+  template:
+    src: msmtprc.j2
+    dest: /etc/msmtprc

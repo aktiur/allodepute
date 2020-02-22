@@ -3,9 +3,6 @@
     repo: 'ppa:nginx/stable'
   when: nginx_latest_ppa|bool
 
-- name: Ensure Nginx is installed
-  apt: name=nginx state=latest
-
 - name: Ensure Nginx extras are installed
   apt: name=nginx-extras state=latest
 

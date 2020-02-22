@@ -10,10 +10,14 @@ app_redirect_domains:
   - xn--allodput-f1ad.fr  # allodéputé.fr
   - www.xn--allodput-f1ad.fr  # www.allodéputé.fr
 
+# pour msmtp
+smtp_domain: "{{ app_domain }}"
+smtp_user: apikey
+smtp_password: "{{ vaulted_sendgrid_api_key }}"
+smtp_host: smtp.sendgrid.net
 
 # Pour nginx/letsencrypt
 letsencrypt_domains: "{{ [app_domain] + app_redirect_domains }}"
-
 
 # Paramètres pour Django
 django_app_name: "{{ app_name }}"

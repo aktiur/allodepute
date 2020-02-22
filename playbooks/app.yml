@@ -2,6 +2,7 @@
   hosts: allodepute
   tasks:
     - import_role: { name: "common" }
+    - import_role: { name: "msmtp" }
     - import_role: { name: "ANXS.postgresql" }
     - name: ensure libsystemd headers are installed
       apt:
