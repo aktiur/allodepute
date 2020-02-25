@@ -4,24 +4,22 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pandas = "*"
 black = "==19.10b0"
-tqdm = "*"
-glom = "*"
 doit = "*"
+pandas = "*"
 requests = "*"
 
 [packages]
-django = "*"
+dj-email-url = "*"
 dj-database-url = "*"
-psycopg2 = "*"
+django = "*"
 django-phonenumber-field = "*"
+markdown = "*"
 phonenumberslite = "*"
 pillow = "*"
-markdown = "*"
-systemd = "*"
-dj-email-url = "*"
+psycopg2 = "*"
 sentry-sdk = "*"
+systemd = "*"
 
 [requires]
 python_version = "3.8"
