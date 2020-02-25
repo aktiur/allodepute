@@ -71,7 +71,6 @@ export const chercherCodePostal = async codePostal => {
       body: `code_postal=${codePostal}`
     })
   );
-  console.log(data);
 
   if (!data.deputes) {
     captureException(
