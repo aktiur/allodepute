@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/browser";
 
 export const trackAction = __production__
   ? (...args) => {
-      window._paq.push(["trackAction", ...args]);
+      window._paq.push(["trackEvent", ...args]);
       Sentry.addBreadcrumb({
         category: "UserAction",
         message: `${args[0]}: ${args[1]}`,
