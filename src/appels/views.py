@@ -1,8 +1,7 @@
-from random import sample, shuffle
+from random import shuffle
 from urllib.parse import quote
 
 from django.conf import settings
-from django.http import QueryDict
 from django.shortcuts import render
 from django.template import loader
 from django.views.generic import TemplateView
@@ -45,6 +44,7 @@ class HomeView(TemplateView):
         body = loader.render_to_string("email.txt", context={"formule": formule})
 
         kwargs["link_data"] = {
+            "depute": depute.to_dict(),
             "tweets": [
                 {"id": id, "tweet": tweet, "quoted": quote(tweet)}
                 for id, tweet in tweets

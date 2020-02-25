@@ -1,0 +1,34 @@
+- fail: msg="You have to define at least one of 'virtualenv_requirements_txt', 'virtualenv_pipfile_directory' or 'virtualenv_packages'"
+  when: virtualenv_requirements_txt is undefined and virtualenv_pipfile_directory is undefined and virtualenv_packages is undefined
+
+- name: Update from requirements.txt
+  pip:
+    virtualenv: "{{ virtualenv_directory }}"
+    virtualenv_python: "{{ virtualenv_python }}"
+    state: present
+    requirements: "{{ virtualenv_requirements_txt }}"
+  when: virtualenv_requirements_txt is defined
+
+- name: make sure pipenv is present
+  pip:
+    name: pipenv
+    virtualenv: "{{ virtualenv_directory }}"
+    virtualenv_python: "{{ virtualenv_python }}"
+    state: present
+  when: virtualenv_pipfile_directory is defined
+
+- name: update from Pipfile.lock
+  command: "{{ virtualenv_directory }}/bin/pipenv sync --bare"
+  args:
+    chdir: "{{ virtualenv_pipfile_directory }}"
+  environment:
+    VIRTUAL_ENV: "{{ virtualenv_directory }}"
+  when: virtualenv_pipfile_directory is defined
+
+- name: make sure additional packages are present
+  pip:
+    name: "{{ virtualenv_packages }}"
+    virtualenv: "{{ virtualenv_directory }}"
+    virtualenv_python: "{{ virtualenv_python }}"
+    state: present
+  when: virtualenv_packages is defined

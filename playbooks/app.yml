@@ -4,9 +4,14 @@
     - import_role: { name: "common" }
     - import_role: { name: "msmtp" }
     - import_role: { name: "ANXS.postgresql" }
-    - name: ensure libsystemd headers are installed
-      apt:
-        name: libsystemd-dev
-        state: latest
+    - import_role: { name: python3 }
+
+    - import_tasks: app_tasks.yml
+
     - import_role:
-        name: "django"
+        name: virtualenv
+      tags: deploy
+
+    - import_role:
+        name: django
+      tags: deploy
