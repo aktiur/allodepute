@@ -2,6 +2,7 @@
   apt:
     name:
       - libsystemd-dev
+      - npm
     state: latest
 
 - name: clone code for the application
@@ -15,3 +16,14 @@
   tags: deploy
   notify:
     - restart django
+
+- name: install javascript dependencies
+  npm:
+    path: /srv/allodepute/repo/
+  tags: deploy
+
+- name: build javascript bundle
+  command:
+    cmd: npm run build
+    chdir: /srv/allodepute/repo/
+  tags: deploy
