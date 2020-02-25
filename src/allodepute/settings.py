@@ -105,7 +105,7 @@ DATABASES = {
 }
 
 # SMTP
-email_config = dj_email_url.config("smtp://localhost/")
+email_config = dj_email_url.config(default="smtp://localhost/")
 EMAIL_FILE_PATH = email_config["EMAIL_FILE_PATH"]
 EMAIL_HOST_USER = email_config["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = email_config["EMAIL_HOST_PASSWORD"]
