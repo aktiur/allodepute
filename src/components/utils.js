@@ -41,3 +41,6 @@ export function mountComponent(component, id, options) {
 
   return new component({ target: node, ...options });
 }
+
+export const isMobile = () =>
+  window.matchMedia("only screen and (max-width: 760px)").matches;
