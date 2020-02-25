@@ -1,0 +1,17 @@
+- name: ensure additional app packages are present
+  apt:
+    name:
+      - libsystemd-dev
+    state: latest
+
+- name: clone code for the application
+  git:
+    repo: "{{ app_repo }}"
+    clone: yes
+    update: yes
+    force: yes
+    dest: "{{ app_repo_directory }}"
+    version: master
+  tags: deploy
+  notify:
+    - restart django

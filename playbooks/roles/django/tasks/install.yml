@@ -1,11 +1,3 @@
-- name: install python
-  import_role: { name: python3 }
-
-- name: ensure libsystemd headers are installed
-  apt:
-    name: libsystemd-dev
-    state: latest
-
 - name: create app group
   group: name={{ django_group }} system=yes
 

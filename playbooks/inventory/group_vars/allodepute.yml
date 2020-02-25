@@ -4,6 +4,7 @@ app_user: allodepute
 db_name: allodepute
 app_domain: allodepute.fr
 app_repo: git@github.com:aktiur/allodepute.git
+app_repo_directory: /srv/allodepute/repo/
 app_redirect_domains:
   - www.allodepute.fr
   - staging.allodepute.fr
@@ -14,20 +15,26 @@ app_redirect_domains:
 # Pour nginx/letsencrypt
 letsencrypt_domains: "{{ [app_domain] + app_redirect_domains }}"
 
+# virtualenv
+virtualenv_python: "/usr/bin/python3.8"
+virtualenv_directory: /srv/allodepute/virtualenv
+virtualenv_pipfile_directory: "{{ app_repo_directory }}"
+virtualenv_packages:
+  - python-dotenv[cli]
+  - uwsgi
 
 # Paramètres pour Django
+django_python: "{{ virtualenv_directory }}/bin/python"
 django_app_name: "{{ app_name }}"
 django_user: "{{ app_user }}"
 django_group: "{{ app_user }}"
 django_domain: "{{ app_domain }}"
 django_redirect_domains: "{{ app_redirect_domains }}"
-django_project_repo: "{{ app_repo }}"
+django_src_directory: "{{ app_repo_directory }}src/"
 django_env:
   DATABASE_URL: "postgis://%2Fvar%2Frun%2Fpostgresql/{{ db_name }}"
   STATIC_DIRS: "/srv/allodepute/repo/static/"
-django_repo_base: ""
 django_secret: "{{ vaulted_django_secret }}"
-django_src_path: "src/"
 django_main_package: "allodepute"
 
 
@@ -37,7 +44,7 @@ postgresql_encoding: 'UTF-8'
 postgresql_locale: 'fr_FR.UTF-8'
 postgresql_ctype: 'fr_FR.UTF-8'
 postgresql_ext_install_dev_headers: yes  # pour pouvoir build psycopg2
-#postgresql_ext_install_postgis: yes   ## PLANTE
+#postgresql_ext_install_postgis: yes   ## PLANTE ==> installer manuellement
 postgresql_ext_postgis_version: "3"
 postgresql_service_enabled: true
 # user and database parameters

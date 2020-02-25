@@ -1,6 +1,6 @@
 [uwsgi]
 master = true
-chdir = {{ django_repo_directory }}/{{ django_src_path }}
+chdir = {{ django_src_directory }}
 socket = {{ django_unix_socket }}
 module = {{ django_main_package }}.wsgi:application
 processes = 2

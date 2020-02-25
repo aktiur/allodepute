@@ -4,9 +4,9 @@
 Description=django uwsgi server
 
 [Service]
-ExecStart=/usr/local/bin/pipenv run uwsgi \
+ExecStart={{ django_env_run }} {{django_python }} -m uwsgi \
         --ini /etc/uwsgi/apps-available/{{ django_app_name }}-django.ini
-WorkingDirectory={{ django_pipfile }}
+WorkingDirectory={{ django_src_directory }}
 User={{ django_user }}
 Group={{ django_group }}
 RuntimeDirectory={{ django_run_directory }} {{ django_runtime_directories|join(' ') }}

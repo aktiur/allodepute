@@ -1,30 +1,28 @@
 ---
-# definissez au moins ceux-là
-django_app_name: app
-django_domain: app.fr
-# django_secret:
+# definissez au moins :
+# django_app_name: le nom de l'application
+# django_domain: le nom de domaine où elle sera disponible
+# django_src_directory: où trouver les packages de l'application
+# django_main_package: le paquet python où se trouve le uwsgi.py
+# django_python: l'executable python à utiliser
+# django_secret: le secret
 
-# optionnels
+# utilisateur
 django_user: django
 django_group: django
 
-# organisation du dépôt
-django_pipfile_path: ""
-django_src_path: ""
-django_manage_path: "{{ django_src_path }}manage.py"
-
 # répertoire
 django_directory: "/srv/{{ django_app_name }}"
+django_env_file: "{{ django_directory }}/env"
 django_static_directory: "{{ django_directory }}/static/"
 django_media_directory: "{{ django_directory }}/media/"
 django_run_directory: "{{ django_app_name }}-django"
 django_runtime_directories: []
 django_unix_socket: /run/{{ django_run_directory }}/django.socket
-django_repo_directory: "{{ django_directory }}/repo/"
-django_manage: "{{ django_repo_directory }}{{ django_manage_path }}"
-django_pipfile: "{{ django_repo_directory }}{{ django_pipfile_path }}"
+django_manage_location: "{{ django_src_directory }}manage.py"
 django_log_directory: /var/log/{{ app_name }}-django
 django_nginx_conf: yes
 django_env: {}
 
-nginx_log_format: fastcgi_cache
+django_env_run: "{{ django_python }} -m dotenv.cli -f {{ django_env_file }} run"
+django_run_manage: "{{ django_env_run }} {{django_python }} {{ django_manage_location }}"
