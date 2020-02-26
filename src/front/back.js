@@ -54,16 +54,10 @@ export const deputeAuHasard = async () => {
 export const chercherCodePostal = async codePostal => {
   trackAction("ChercheCodePostal", codePostal);
 
-  const data = await checkForErrors(
-    fetch("/chercher/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-CSRFToken": getCookie("csrftoken")
-      },
-      body: `code_postal=${codePostal}`
-    })
-  );
+  const url = new URL("/chercher/");
+  url.searchParams.append("code_postal", codePostal);
+
+  const data = await checkForErrors(fetch(url));
 
   if (!data.deputes) {
     captureException(

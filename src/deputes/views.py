@@ -17,10 +17,9 @@ def depute_au_hasard(request):
 
 
 def rechercher_depute_view(request):
-    if request.method != "POST":
-        return HttpResponse(content=b"", status=405)
+    code_postal = request.GET.get("code_postal", request.POST.get("code_postal", None))
 
-    if "code_postal" not in request.POST:
+    if "code_postal" is None:
         return JsonResponse({"message": "Code postal manquant"}, status=400)
 
     code_postal = request.POST["code_postal"]
