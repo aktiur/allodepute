@@ -27,14 +27,9 @@ const checkForErrors = async fetcher => {
 
   if (!res.ok) {
     if (data && data.message) {
-      captureException(
-        `Erreur ${res.status}: ${data.message} (code postal ${codePostal})`
-      );
       throw new Error(data.message);
     } else {
-      captureException(
-        `Erreur ${res.status}: pas de cause indiquée (code postal ${codePostal})`
-      );
+      captureException(`Erreur ${res.status}: pas de cause indiquée`);
       throw new Error(
         "Erreur inconnue rencontrée pendant la recherche. On enquête !"
       );
@@ -49,9 +44,7 @@ export const deputeAuHasard = async () => {
 
   const data = await checkForErrors(fetch("/hasard/"));
   if (!data.depute) {
-    captureException(
-      `Erreur données : pas de propriété 'depute' (code postal ${codePostal})`
-    );
+    captureException(`Erreur données : pas de propriété 'depute'`);
     throw new Error("Le serveur a renvoyé n'importe quoi.");
   }
 
