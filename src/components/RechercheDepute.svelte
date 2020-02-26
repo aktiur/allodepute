@@ -16,6 +16,7 @@
     const codePostal = e.detail.codePostal;
 
     loading = true;
+    errorMessage = null;
 
     try {
       deputes = await chercherCodePostal(codePostal);
