@@ -42,7 +42,7 @@ export default {
 
     babel({
       extensions: [".js", ".mjs", ".svelte"],
-      exclude: "node_modules/core-js/**"
+      exclude: ["node_modules/core-js/**", "node_modules/whatwg-fetch/**"]
     }),
 
     // Watch the `public` directory and refresh the

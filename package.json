@@ -29,6 +29,7 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@sentry/browser": "^5.12.4",
     "core-js": "^3.6.4",
-    "regenerator-runtime": "^0.13.3"
+    "regenerator-runtime": "^0.13.3",
+    "whatwg-fetch": "^3.0.0"
   }
 }

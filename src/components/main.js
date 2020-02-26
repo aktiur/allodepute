@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/browser";
+import "whatwg-fetch";
 
 if (__production__) {
   Sentry.init({
