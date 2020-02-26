@@ -9,7 +9,7 @@ import babel from "rollup-plugin-babel";
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: "src/components/main.js",
+  input: "src/front/main.js",
   output: {
     sourcemap: true,
     format: "iife",
