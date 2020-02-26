@@ -23,7 +23,7 @@
         <input
           bind:this={input}
           on:input={() => input.setCustomValidity('')}
-          type="text"
+          type="search"
           class="form-control"
           id="inputcp"
           placeholder="Mon code postal" />
