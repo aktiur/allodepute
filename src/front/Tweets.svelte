@@ -33,7 +33,7 @@
         <div class="reseau">{tweet}</div>
         <a
           on:click={() => trackAction('EnvoyerTweet', id)}
-          href="https://twitter.com/intent/tweet?text={$depute.twitter}%20{quoted}&amp;hashtags=allod%C3%A9put%C3%A9"
+          href="https://twitter.com/intent/tweet?text=.@{$depute.twitter}%20{quoted}&amp;hashtags=allod%C3%A9put%C3%A9"
           class="btn-cust b2 my-2"
           target="_blank">
           Envoyer ce tweet
