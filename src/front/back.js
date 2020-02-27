@@ -54,8 +54,7 @@ export const deputeAuHasard = async () => {
 export const chercherCodePostal = async codePostal => {
   trackAction("ChercheCodePostal", codePostal);
 
-  const url = new URL("/chercher/");
-  url.searchParams.append("code_postal", codePostal);
+  const url = `/chercher/?code_postal=${codePostal}`;
 
   const data = await checkForErrors(fetch(url));
 
