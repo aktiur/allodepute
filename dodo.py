@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -23,7 +24,7 @@ SRC_DIR = Path(__file__).parent / "src"
 
 
 def django_manage(*cmd):
-    return ["pipenv", "run", "src/manage.py", *cmd]
+    return [sys.executable, "src/manage.py", *cmd]
 
 
 def task_dossier():
