@@ -53,11 +53,17 @@ def correspondances_partis(dir):
 
 
 def masser_fichier_deputes(
-    dir: Path, dest: Path, corr_groupes, corr_partis, complements
+    dir: Path,
+    dest: Path,
+    corr_groupes,
+    corr_partis,
+    complements_tel,
+    complements_twitter,
 ):
     files = list(dir.glob("PA*.json"))
 
-    comp = pd.read_csv(complements, index_col="code", dtype={"telephones": str})
+    comp_tel = pd.read_csv(complements_tel, index_col="code", dtype={"telephones": str})
+    comp_twitter = pd.read_csv(complements_twitter, index_col="code")
 
     with dest.open("w") as fd_out:
         w = csv.DictWriter(
@@ -114,15 +120,18 @@ def masser_fichier_deputes(
                 for a in adresses
                 if a[TYPE] == TYPE_ADDRESSES["telephone"]
             }
-            if code in comp.index:
-                telephones.update(comp.loc[code, "telephones"].split("|"))
+            if code in comp_tel.index:
+                telephones.update(comp_tel.loc[code, "telephones"].split("|"))
             telephones = "|".join(telephones)
 
-            twitter = "|".join(
+            twitter = {
                 a["valElec"].strip("@")
                 for a in adresses
                 if a[TYPE] == TYPE_ADDRESSES["rs"] and a["typeLibelle"] == "Twitter"
-            )
+            }
+            if code in comp_twitter.index:
+                twitter.update(comp_twitter.loc[code, "twitter"].split("|"))
+            twitter = "|".join(twitter)
 
             facebook = "|".join(
                 a["valElec"]
