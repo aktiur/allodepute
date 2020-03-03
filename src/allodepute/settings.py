@@ -11,13 +11,16 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import re
 from pathlib import Path
 
 import dj_database_url
 import dj_email_url
 import sentry_sdk
+from django.core.exceptions import ImproperlyConfigured
 from sentry_sdk.integrations.django import DjangoIntegration
 
+ADMIN_RE = re.compile("^([\w -]+) <([^>]+)>$")
 
 BASE_DIR = Path(__file__).absolute().parent.parent
 
@@ -43,7 +46,15 @@ if not DEBUG:
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
 
-ADMINS = os.environ.get("ADMINS").split(",") if "ADMINS" in os.environ else []
+admins = os.environ.get("ADMINS")
+if admins:
+    admins = [ADMIN_RE.match(s.strip()) for s in admins.split(";")]
+    if any(m is None for m in admins):
+        raise ImproperlyConfigured(
+            "ADMINS should be of the form 'Name 1 <address1@domain.fr>; Name 2 <address2@domain.fr>"
+        )
+
+    ADMINS = [m.groups() for m in admins]
 
 # Application definition
 

@@ -39,7 +39,7 @@ django_src_directory: "{{ app_repo_directory }}src/"
 django_env:
   DATABASE_URL: "postgis://%2Fvar%2Frun%2Fpostgresql/{{ db_name }}"
   EMAIL_URL: "submission://{{ smtp_user }}:{{ smtp_password }}@{{ smtp_host }}/"
-  ADMINS: "arthur@cheysson.fr"
+  ADMINS: "Arthur Cheysson <arthur@cheysson.fr>"
   STATIC_DIRS: "/srv/allodepute/repo/static/"
 django_secret: "{{ vaulted_django_secret }}"
 django_main_package: "allodepute"
